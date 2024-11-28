@@ -88,3 +88,40 @@ p {
     background-color: rgb(8, 74, 74);
     ;
 }
+
+@media(max-width:768px) {
+    .card-grid {
+        flex-wrap: wrap;
+    }
+    .images {
+        margin-top: 10px;
+        height: 410px;
+        width: 100%;
+    }
+    .product {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -390px;
+        color: white
+    }
+    .contain h1,
+    .contain p {
+        margin: 20px;
+    }
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+    }
+    .card-grid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card button {
+        margin: 10px 20px 20px 20px;
+        border-radius: 4px;
+    }
+}

@@ -33,6 +33,20 @@ body {
     color: #333;
 }
 
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #0c0c0c;
+    margin: 4px;
+    border-radius: 5px;
+}
+
 .nav-links a:hover {
     background-color: darkcyan;
     border-radius: 5px;
@@ -59,4 +73,40 @@ li {
     color: white;
     border: none;
     transition: 0.2s;
+}
+
+@media screen and (max-width:768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 30%;
+        height: 40%;
+        text-align: left;
+        position: absolute;
+        top: 57px;
+        right: 0;
+        background-color: rgb(239, 232, 232);
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links li {
+        margin: 10px;
+        margin-bottom: 20px
+    }
+    .nav-links li a:hover {
+        background-color: white;
+        color: black;
+        width: 100%;
+        border-radius: 7px;
+        transition: 0.2s;
+        padding: 10px;
+        overflow: hidden;
+    }
+    .hamburger {
+        display: flex;
+        margin-right: 10px;
+    }
 }
