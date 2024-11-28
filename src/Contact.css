@@ -1,0 +1,64 @@
+.box {
+    border-radius: 15px;
+    height: 400px;
+    width: 770px;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.left {
+    float: left;
+}
+
+.left img {
+    height: 400px;
+    width: 400px;
+    border-radius: 15px 0px 0px 15px;
+}
+
+.right {
+    float: right;
+    margin-right: 40px;
+}
+
+.right h1 {
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.input-box {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.box-contain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.area {
+    margin-top: 10px;
+}
+
+.submit {
+    margin-top: 30px;
+    text-align: center;
+    border: 1px solid #333;
+    border-radius: 7px;
+    height: 35px;
+    width: 150px;
+    font-size: 20px;
+}
+
+.submit:hover {
+    color: white;
+    background-color: #333;
+}

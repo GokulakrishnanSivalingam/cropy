@@ -1,87 +1,101 @@
-* {
-    margin: 0%
-}
-
-fieldset {
-    width: fit-content;
-    border-radius: 0px;
-    border: none;
-    background-color: rgb(236, 230, 230);
-    margin-top: 90px;
-}
-
-.cont-auth {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-input {
-    width: 250px;
-    height: 35px;
-    border-radius: 2px;
-    border: 1px solid grey;
-}
-
-.check input {
-    width: fit-content;
-    height: fit-content;
-    margin-top: 12px;
-}
-
-.check span {
-    margin: 5px;
-}
-
-a {
-    text-decoration: none;
-}
-
-.auth button {
-    background-color: blue;
-    color: white;
-    width: 100%;
-    height: 30px;
-    border: 1px solid blue;
-}
-
-.auth button:hover {
-    background-color: darkblue;
-}
-
-.error-text {
-    color: red;
-    font-size: 12px;
-    margin: 6px;
-}
-
-input {
-    margin: 5px;
-}
-
-textarea {
-    border: 1px solid grey;
-}
-
-.icon h1 {
-    background-color: blue;
-    border-radius: 50%;
-    width: 50px;
-    height: 45px;
-    color: white;
-    padding-top: 6px;
-}
-
-.icon-auth {
-    margin-top: 10px;
-}
-
-@media(max-width: 768px) {
+    * {
+        margin: 0%
+    }
+    
     fieldset {
         width: fit-content;
         border-radius: 0px;
         border: none;
-        background-color: white;
-        margin-top: 130px;
+        background-color: rgb(236, 230, 230);
+        margin-top: 90px;
     }
-}
+    
+    .cont-auth {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    input {
+        width: 250px;
+        height: 38px;
+        border-radius: 5px;
+        border: none;
+        padding-left: 10px;
+    }
+    
+    .check input {
+        width: fit-content;
+        height: fit-content;
+        margin-top: 12px;
+    }
+    
+    .check span {
+        margin: 5px;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    .auth button {
+        background-color: darkcyan;
+        color: white;
+        width: 97%;
+        height: 37px;
+        border: none;
+        margin: 2px;
+        border-radius: 5px;
+    }
+    
+    .auth button:hover {
+        background-color: rgb(8, 74, 74);
+    }
+    
+    .error-text {
+        color: red;
+        font-size: 12px;
+        margin: 4px;
+    }
+    
+    input {
+        margin: 5px;
+    }
+    
+    textarea {
+        border: 1px solid grey;
+    }
+    
+    .icon h1 {
+        background-color: darkcyan;
+        ;
+        border-radius: 50%;
+        width: 50px;
+        height: 45px;
+        color: white;
+        padding-top: 6px;
+    }
+    
+    .icon-auth {
+        margin-top: 10px;
+        color: darkcyan;
+    }
+    
+    .big-contain {
+        display: flex;
+    }
+    
+    .servererror p {
+        color: red;
+        margin: 10px;
+    }
+    
+    @media(max-width: 768px) {
+        fieldset {
+            width: fit-content;
+            border-radius: 0px;
+            border: none;
+            background-color: white;
+            margin-top: 130px;
+        }
+    }

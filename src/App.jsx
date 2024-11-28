@@ -1,6 +1,7 @@
 import React from "react";
 import Header from './Header.jsx';
 import image from './images/front.webp';
+import Footer from "./Footer.jsx";
 
 function App(){
   return(
@@ -39,7 +40,8 @@ function App(){
       <p> Browse, select, and buy produce with just a few clicks, all from the comfort of your home.</p>
       <button>check</button>
     </div></div>
-    </div>
+    
+    </div><Footer></Footer>
     </>
   );
 }

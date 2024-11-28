@@ -1,57 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-body{
+body {
     margin: 0;
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
 }
-.header{
+
+.header {
     background-color: white;
     display: flex;
     color: black;
     padding: 1 rem;
     align-items: center;
     justify-content: space-between;
-    
 }
-.header h1{
+
+.header h1 {
     font-weight: 400;
     margin: 10px;
 }
 
-.nav-links{
+.nav-links {
     list-style: none;
     display: flex;
     gap: 1rem;
     margin-right: 10px;
 }
 
-.nav-links a{
+.nav-links a {
     text-decoration: none;
     color: #333;
 }
-.nav-links a:hover{
-    background-color: rgb(85, 235, 88);
+
+.nav-links a:hover {
+    background-color: darkcyan;
     border-radius: 5px;
     color: white;
     padding: 8px;
     transform: scale(10px);
     transition: 0.2s;
 }
-li{
+
+li {
     margin-right: 30px;
 }
-.login  a{
-    border:2px solid rgb(84, 82, 82);
-    padding: 5px; 
+
+.login a {
+    border: 2px solid rgb(84, 82, 82);
+    padding: 5px;
     border-radius: 4px;
 }
-.login  a:hover{
+
+.login a:hover {
     background-color: #333;
-    padding: 5px; 
+    padding: 5px;
     border-radius: 4px;
-    color:white;
-    border:none;
+    color: white;
+    border: none;
     transition: 0.2s;
 }

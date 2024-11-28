@@ -11,7 +11,7 @@ return(
             <ul className="nav-links">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/">Products</Link></li>
-                <li><Link to="/">Contact</Link></li> 
+                <li><Link to="/contact">Contact</Link></li> 
                 <li><Link to="/register">Signup</Link></li>
               <div className="login">  <li><Link to="/login">login</Link></li></div>
             </ul>
