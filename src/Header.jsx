@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <h1>F Products</h1>
+          <div className="title">  <h1> Fresh Farm</h1></div>
             <nav className="navbar">
                 <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
                     <li><Link to="/">Home</Link></li>
@@ -21,12 +21,14 @@ const Header = () => {
                     <div className="login">
                         <li><Link to="/login">Login</Link></li>
                     </div>
-                </ul>
+                </ul><div className="m-view">
+                <div className="login2"><p><Link to="/login">Login</Link></p></div>
                 <div className="hamburger" onClick={toggleMenu}>
+                
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
-                </div>
+                </div></div>
             </nav>
         </header>
     );
