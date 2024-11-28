@@ -79,7 +79,7 @@ function Login() {
       <div>
        
         <div className="cont-auth">
-        <fieldset>
+        <fieldset className='field'>
      <center>  <div className="icon-auth"><h1><FaUser/></h1></div> </center>  <br />
           <form>
             <label htmlFor="email">Email</label><br />

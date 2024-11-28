@@ -2,11 +2,11 @@
         margin: 0%
     }
     
-    fieldset {
+    .field {
         width: fit-content;
         border-radius: 0px;
         border: none;
-        background-color: rgb(236, 230, 230);
+        background-color: rgb(230, 224, 224);
         margin-top: 90px;
     }
     

@@ -85,7 +85,7 @@ function Register() {
     <>
       <div>
         
-   <div className="cont-auth">   <fieldset>
+   <div className="cont-auth">   <fieldset className='field'>
     <center><div className="icon-auth"> <h1>< BiSolidUserRectangle /></h1></div> </center>  <br />
         <form >
           <label htmlFor="email">Email</label><br />
