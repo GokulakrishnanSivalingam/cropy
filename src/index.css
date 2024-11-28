@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+    margin: 0;
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.images {
+    margin-top: 10px;
+    height: 430px;
+    width: 100%;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -280px;
+    color: white
+}
+
+.contain button {
+    height: 45px;
+    width: 200px;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(233, 158, 17);
+    margin: 20px;
+}
+
+.card h3,
+.card p {
+    margin: 12px;
+}
+
+.contain h1,
+.card-grid h1 {
+    font-weight: 400;
+}
+
+.about {
+    margin-top: 90px;
+}
+
+.card-grid {
+    display: flex;
+}
+
+.card {
+    width: 302px;
+    margin: 30px;
+    background-color: rgb(238, 229, 229);
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 130px;
+}
+
+.card-grid img {
+    width: 300px;
+}
+
+.card button {
+    color: white;
+    background-color: rgb(78, 71, 71);
+    width: 100px;
+    height: 30px;
+    border: none;
+    margin: 0px 10px 10px 10px;
+    border-radius: 2px;
+}
+
+.card button:hover {
+    color: black;
+    border: 2px solid rgb(78, 71, 71);
+    width: 100px;
+    height: 30px;
+    margin: 0px 10px 10px 10px;
+    border-radius: 2px;
+    background-color: white;
+}
