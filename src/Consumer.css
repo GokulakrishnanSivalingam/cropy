@@ -99,7 +99,7 @@
         padding: 10px;
         border: 1px solid grey;
         width: 40%;
-        height: 150px;
+        height: fit-content;
     }
     .todo-list h3 {
         margin-left: 20px;

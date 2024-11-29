@@ -9,7 +9,7 @@ const Consumer = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:5172/getproducer")
+    fetch("https://fertilizer-site-1.onrender.com/getproducer")
       .then((res) => res.json())
       .then((data) => setTodoList(data))
       .catch((err) => console.error("Error fetching producers:", err));

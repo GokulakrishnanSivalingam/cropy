@@ -11,7 +11,7 @@ const Producer = () => {
 
     // Fetch the producer list
     useEffect(() => {
-        fetch('http://localhost:5172/getproducer')
+        fetch('https://fertilizer-site-1.onrender.com/getproducer')
             .then((res) => res.json())
             .then((data) => setTodoList(data))
             .catch((err) => console.error('Error fetching producers:', err));
@@ -27,7 +27,7 @@ const Producer = () => {
         const newEntry = { name, number, address, variety };
 
         try {
-            const response = await fetch('http://localhost:5172/producer', {
+            const response = await fetch('https://fertilizer-site-1.onrender.com/producer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,8 +41,8 @@ const Producer = () => {
                 setNumber('');
                 setAddress('');
                 setVariety('');
-                // Refetch the updated producer list
-                fetch('http://localhost:5172/getproducer')
+                
+                fetch('https://fertilizer-site-1.onrender.com/getproducer')
                     .then((res) => res.json())
                     .then((data) => setTodoList(data))
                     .catch((err) => console.error('Error fetching producers:', err));
@@ -56,10 +56,10 @@ const Producer = () => {
         }
     }
 
-    // Delete a producer
+    
     async function handleDelete(id) {
         try {
-            const response = await fetch(`http://localhost:5172/producer/${id}`, {
+            const response = await fetch(`https://fertilizer-site-1.onrender.com/producer/${id}`, {
                 method: 'DELETE',
             });
 
