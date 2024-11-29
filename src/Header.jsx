@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Header.css';
 import { Link } from "react-router-dom";
-
+import ff from "./images/ff.jpg"
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header className="header">
-          <div className="title">  <h1> Fresh Farm</h1></div>
+          <div className="title">  <h1><img src={ff} alt="" /></h1></div>
             <nav className="navbar">
                 <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
                     <li><Link to="/">Home</Link></li>

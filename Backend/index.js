@@ -67,6 +67,44 @@ app.post('/register', async(req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+mongoose.connect('mongodb+srv://game:game@cluster1.xfa43.mongodb.net/producerDB', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log('MongoDB connected'))
+    .catch((err) => console.log(err));
+
+
+const producerSchema = new mongoose.Schema({
+    name: String,
+    number: String,
+    address: String,
+    variety: String,
+});
+
+const Producer = mongoose.model('Producer', producerSchema);
+
+
+app.post('/producer', async(req, res) => {
+    const { name, number, address, variety } = req.body;
+    try {
+        const newProducer = new Producer({ name, number, address, variety });
+        await newProducer.save();
+        res.status(201).json({ message: 'Producer saved successfully!' });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to save producer.' });
+    }
+});
+
+app.get('/producer', async(req, res) => {
+    try {
+        const producers = await Producer.find();
+        res.status(200).json(producers);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch producers.' });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

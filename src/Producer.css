@@ -1,0 +1,52 @@
+    .crop-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+    }
+    
+    .add-crop {
+        display: block;
+    }
+    
+    .add-crop input {
+        margin: 15px;
+        width: 300px;
+        height: 40px;
+        border: 1px solid gray;
+        border-radius: 3px;
+    }
+    
+    .add-crop select {
+        margin: 15px;
+        width: 315px;
+        height: 40px;
+        border: 1px solid gray;
+        border-radius: 3px;
+    }
+    
+    .add-crop button {
+        color: white;
+        background-color: darkcyan;
+        width: 90%;
+        height: 30px;
+        border: none;
+        margin: 20px;
+        border-radius: 4px;
+    }
+    
+    .todo-container {
+        margin: 30px;
+        display: flex;
+    }
+    
+    .items {
+        margin: 10px;
+        padding: 25px;
+        border: 1px solid grey;
+        width: 200px;
+    }
+    
+    .todo-list {
+        margin: 60px;
+    }
