@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './auth.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 import { BiSolidUserRectangle } from "react-icons/bi";
 
 function Register() {
@@ -117,7 +117,7 @@ function Register() {
      </div>
         </form>
       
-        <p>I have account? <a href="/login">login</a></p>
+        <p>I have account? <Link to="/login">login</Link></p>
         </fieldset></div>  <br />
     
 

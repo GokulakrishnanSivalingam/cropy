@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import './auth.css';
 
 import { FaUser } from "react-icons/fa";
@@ -123,7 +123,7 @@ function Login() {
         <div className="servererror"> <p>{message}</p></div>   
           </form>
           <br />
-          <p>do not have any account? <a href="/register">register</a></p>
+          <p>do not have any account? <Link to="/register">register</Link></p>
         </fieldset></div>
         <br />
       </div>
