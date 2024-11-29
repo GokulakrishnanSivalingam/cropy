@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Header.css';
 import { Link } from "react-router-dom";
-import ff from "./images/ff.jpg"
+import ff from "./images/ff2.png"
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -15,7 +15,7 @@ const Header = () => {
             <nav className="navbar">
                 <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/products">Products</Link></li>
+                    <li><Link to="/consumer">Products</Link></li>
                     <li><Link to="/contact">Contact</Link></li>
                     <li><Link to="/register">Signup</Link></li>
                     <div className="login">

@@ -39,7 +39,7 @@ function App(){
       <h3>Consumer</h3>
       <p> No middlemen, no inflated prices. Buy directly from farmers and support their work.
       </p>
-      <button>register</button>
+     <Link to="/consumer"> <button>register</button></Link>
     </div>
     <div className="card">
     <img src="https://i.pinimg.com/236x/d6/ed/4d/d6ed4d80b0ea2c7ab9c7ba78d7b7b818.jpg" alt="" />
@@ -54,7 +54,7 @@ function App(){
      <center><h1>About us</h1></center> 
       <p>
       Welcome to Farm Fresh Products, your trusted platform for connecting farmers and consumers directly. We are committed to providing fresh, high-quality, and locally grown products straight from farms to your doorstep. Our mission is to empower farmers by giving them a platform to showcase their produce while ensuring consumers enjoy the freshness and transparency they deserve. From grains and vegetables to spices and organic products, we bring you a wide range of sustainably sourced items. By supporting Farm Fresh Products, you’re not only choosing healthier options but also contributing to a greener, more sustainable future for all.</p>
-        <center><button>learn more</button></center>
+        <center><Link to="/about"><button>learn more</button></Link></center>
       </div>
     <div className="about-img"><center><img src="https://i.pinimg.com/originals/8d/8c/ac/8d8cacc7074eaeb9178a03b9cc4c788d.gif" alt="" /></center></div>
     </div>
@@ -63,13 +63,13 @@ function App(){
     <div className="about-img1"><center><img src="https://i.pinimg.com/originals/83/27/8e/83278ee8facf9002f7852fc645d201c1.gif" alt="" /></center></div><div className="aboutit1">
      <center><h1>Benifits</h1></center> 
       <p>
-      <strong> 1. </strong>  Fresh products sourced directly from farmers.
+      <strong> 1.  </strong>  Fresh products sourced directly from farmers.
       <br /><br />
-      <strong> 2. </strong> Transparent pricing with no middlemen.
+      <strong> 2.  </strong> Transparent pricing with no middlemen.
       <br /><br />
-      <strong> 3. </strong>Easy-to-use platform for browsing and purchasing<br /><br />
-      <strong> 4. </strong>Eco-friendly and sustainable practices.<br /><br />
-      <strong> 5. </strong>For example, natural oils like coconut oil or argan oil are packed with fatty acids and vitamins that nourish the skin and hair.</p>
+      <strong>3.  </strong>Easy-to-use platform for browsing and purchasing<br /><br />
+      <strong> 4.  </strong>Eco-friendly and sustainable practices.<br /><br />
+      <strong>5.  </strong>For example, natural oils like coconut oil or argan oil are packed with fatty acids and vitamins that nourish the skin and hair.</p>
         
       </div>
     </div>

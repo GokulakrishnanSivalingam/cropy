@@ -6,6 +6,8 @@ import Login from "../Auth/Login.jsx";
 import Register from "../Auth/Register.jsx";
 import Contact from "../Contact.jsx"
 import Producer from '../Producer.jsx';
+import Consumer from '../Consumer.jsx';
+import About from '../About.jsx';
 function Routing() {
   return (
     <Router>
@@ -16,6 +18,8 @@ function Routing() {
         <Route path="/register" element={<Register/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/producer" element={<Producer/>} />
+        <Route path="/consumer" element={<Consumer/>} />
+        <Route path="/about" element={<About/>} />
       </Routes>
     </Router>
   );

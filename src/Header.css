@@ -87,8 +87,8 @@ li {
 }
 
 .title img {
-    width: 220px;
-    height: 40px;
+    width: 150px;
+    height: 37px;
 }
 
 @media screen and (max-width:768px) {

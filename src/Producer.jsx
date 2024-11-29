@@ -1,41 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "./Header.jsx";
-import "./Producer.css";
+import "./Consumer.css";
 
 const Producer = () => {
-    const [names, setName] = useState('');
+    const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    const [address, setAdd] = useState('');
-    const [variety, setVar] = useState('');
-    const [todoList, setTodoList] = useState([]); 
+    const [address, setAddress] = useState('');
+    const [variety, setVariety] = useState('');
+    const [todoList, setTodoList] = useState([]);
 
+    // Fetch the producer list
     useEffect(() => {
-        fetch('http://localhost:4000/producer')
+        fetch('http://localhost:5172/getproducer')
             .then((res) => res.json())
             .then((data) => setTodoList(data))
-            .catch((err) => console.error(err));
+            .catch((err) => console.error('Error fetching producers:', err));
     }, []);
-    async function  handleAddToList() {
-        
-        if (!names || !number || !address || !variety) {
+
+    // Add a new producer
+    async function handleAddToList() {
+        if (!name || !number || !address || !variety) {
             alert('Please fill in all fields!');
             return;
         }
 
-        
-        setTodoList((prevList) => [
-            ...prevList,
-            { id: Date.now(), names, number, address, variety }
-        ]);
+        const newEntry = { name, number, address, variety };
 
-        
-        setName('');
-        setNumber('');
-        setAdd('');
-        setVar('');
-        const newEntry = { names, number, address, variety };
         try {
-            const response = await fetch('http://localhost:4000/producer', {
+            const response = await fetch('http://localhost:5172/producer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,22 +36,44 @@ const Producer = () => {
             });
 
             if (response.ok) {
-                const savedEntry = await response.json();
-                setTodoList((prevList) => [...prevList, newEntry]); 
+                alert('Entry added successfully!');
                 setName('');
                 setNumber('');
-                setAdd('');
-                setVar('');
-                alert('Entry added successfully!');
+                setAddress('');
+                setVariety('');
+                // Refetch the updated producer list
+                fetch('http://localhost:5172/getproducer')
+                    .then((res) => res.json())
+                    .then((data) => setTodoList(data))
+                    .catch((err) => console.error('Error fetching producers:', err));
             } else {
-                alert('Failed to add entry.');
+                const errorData = await response.json();
+                alert(errorData.error || 'Failed to add entry.');
             }
         } catch (err) {
-            console.error('Error:', err);
+            console.error('Error adding producer:', err);
             alert('Failed to add entry.');
         }
-    
-    };
+    }
+
+    // Delete a producer
+    async function handleDelete(id) {
+        try {
+            const response = await fetch(`http://localhost:5172/producer/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                alert('Entry deleted successfully!');
+                setTodoList((prevList) => prevList.filter((item) => item._id !== id));
+            } else {
+                alert('Failed to delete entry.');
+            }
+        } catch (err) {
+            console.error('Error deleting producer:', err);
+            alert('Failed to delete entry.');
+        }
+    }
 
     return (
         <div>
@@ -68,7 +82,7 @@ const Producer = () => {
                 <div className="add-crop">
                     <input
                         type="text"
-                        value={names}
+                        value={name}
                         placeholder="Enter your name"
                         onChange={(e) => setName(e.target.value)}
                     /><br />
@@ -82,11 +96,11 @@ const Producer = () => {
                         type="text"
                         value={address}
                         placeholder="Enter your address"
-                        onChange={(e) => setAdd(e.target.value)}
+                        onChange={(e) => setAddress(e.target.value)}
                     /><br />
                     <select
                         value={variety}
-                        onChange={(e) => setVar(e.target.value)}
+                        onChange={(e) => setVariety(e.target.value)}
                     >
                         <option value="">Select variety</option>
                         <option value="samba">samba</option>
@@ -102,20 +116,26 @@ const Producer = () => {
             </div>
 
             <div className="todo-list">
-                <h3>your crops</h3>
+                <h3>Your Crops</h3>
                 {todoList.length > 0 ? (
-                    
-                    <ul>
-                        <div className="todo-container">
+                    <div className="todo-container">
                         {todoList.map((item) => (
-                            <p key={item.id} style={{ marginBottom: '10px' }} className='items'>
-                                <span>Name:</span> {item.names} <br />
-                                <span>Number:</span> {item.number} <br />
-                                <span>Address:</span> {item.address} <br />
-                                <span>Variety:</span> {item.variety} <br />
-                            </p>
+                            <div key={item._id} style={{ marginBottom: '10px' }} className="items">
+                                <p>
+                                    <span>Name:</span> {item.name} <br />
+                                    <span>Number:</span> {item.number} <br />
+                                    <span>Address:</span> {item.address} <br />
+                                    <span>Variety:</span> {item.variety} <br />
+                                </p>
+                                <button
+                                    onClick={() => handleDelete(item._id)}
+                                    style={{ marginTop: '5px', color: 'red' }}
+                                >
+                                    Delete
+                                </button>
+                            </div>
                         ))}
-                  </div>  </ul>
+                    </div>
                 ) : (
                     <p>No items in the list yet.</p>
                 )}

@@ -1,0 +1,107 @@
+.search-todo input {
+    width: 400px;
+    border: 1px solid grey;
+    height: 45px;
+    margin: 10px;
+}
+
+.product-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.crop-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.add-crop {
+    display: block;
+}
+
+.add-crop input {
+    margin: 15px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+.add-crop select {
+    margin: 15px;
+    width: 315px;
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+
+.add-crop button {
+    color: white;
+    background-color: darkcyan;
+    width: 90%;
+    height: 30px;
+    border: none;
+    margin: 20px;
+    border-radius: 4px;
+}
+
+.todo-container {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.items {
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid grey;
+    width: 180px;
+}
+
+.todo-list {
+    margin: 60px;
+}
+
+@media(max-width:768px) {
+    .todo-container {
+        margin: 0px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .product-input {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+    .search-todo input {
+        width: 95%;
+        border: 1px solid grey;
+        height: 45px;
+        margin: 10px;
+    }
+    .todo-list {
+        margin: 0;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+    .items {
+        margin: 5px;
+        padding: 10px;
+        border: 1px solid grey;
+        width: 40%;
+        height: 150px;
+    }
+    .todo-list h3 {
+        margin-left: 20px;
+    }
+}

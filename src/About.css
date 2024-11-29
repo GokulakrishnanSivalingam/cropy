@@ -1,0 +1,25 @@
+.about-containers {
+    margin: 15px;
+    text-align: justify;
+    font-weight: 400;
+}
+
+.about-containers p {
+    line-height: 1.5rem;
+    margin-left: 35px;
+    margin-right: 15px;
+}
+
+.about-page h1 {
+    font-weight: 400;
+    margin-left: 10px;
+    color: darkcyan;
+    font-size: 25px;
+    margin: 10px;
+    text-align: justify;
+}
+
+.about-containers li {
+    margin-left: 25px;
+    line-height: 1.5rem;
+}
