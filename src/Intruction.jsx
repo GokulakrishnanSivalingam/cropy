@@ -1,13 +1,14 @@
 import React from "react";
 
 import './Intruction.css';
+import Header from "./Header";
 
 
 
 const Instruction=()=>{
 
     return(<>
-
+<Header></Header>
         <div className="first11">
 
             <h1 className="first1">Welcome to Fresh Farm Products!</h1>

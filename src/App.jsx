@@ -14,7 +14,7 @@ function App(){
   return(
 <>
     <div> 
-      <Header/>
+      
       <Helmet>
         <meta property="og:title" content="AVFarm" />
         <meta property="og:description" content="This is a description of the AVFarm website." />
@@ -23,6 +23,7 @@ function App(){
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@avfarm" />
       </Helmet>
+      <Header/>
       <div>
         <img src="https://i.pinimg.com/736x/b9/3b/7b/b93b7bb7f7dda76f873917f70e636cf7.jpg" className="images" />
       </div>
