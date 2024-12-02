@@ -13,9 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 const port = 5172;
 
 app.post('/producer', async(req, res) => {
-    const { name, number, address, variety } = req.body;
+    const { name, number, address, variety, quantity } = req.body;
     try {
-        const newProducer = new Producer({ name, number, address, variety });
+        const newProducer = new Producer({ name, number, address, variety, quantity });
         await newProducer.save();
         res.status(201).json({ message: 'Producer saved successfully!' });
     } catch (err) {

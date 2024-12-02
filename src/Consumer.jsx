@@ -58,7 +58,7 @@ const Consumer = () => {
               <div key={item._id} style={{ marginBottom: "10px" }} className="items">
                 <p>
                   <span>Name:</span> {item.name} <br />
-                  <span>Number:</span> {item.number} <br />
+                  <span>quantity:</span> {item.quantity} <br />
                   <span>Address:</span> {item.address} <br />
                   <span>Variety:</span> {item.variety} <br />
                 </p>
