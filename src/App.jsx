@@ -54,7 +54,7 @@ function App(){
     <img src="https://i.pinimg.com/236x/d6/ed/4d/d6ed4d80b0ea2c7ab9c7ba78d7b7b818.jpg" alt="" />
       <h3>Convenient Online Shopping</h3>
       <p> Browse, select, and buy produce with just a few clicks, all from the comfort of your home.</p>
-      <Link to="/"><button>check</button></Link>
+      <Link to="/instruction"><button>check</button></Link>
     </div></div>
     </div>
 

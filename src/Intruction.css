@@ -1,0 +1,46 @@
+.ins2 h1 {
+    margin-left: 50px;
+    font-weight: 400;
+}
+
+.ins2 p {
+    margin-left: 70px;
+    margin-right: 15px;
+    text-align: justify;
+    line-height: 1.6rem;
+    margin-top: 10px;
+}
+
+.first1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: darkcyan;
+}
+
+.first11 p {
+    margin-left: 70px;
+    margin-right: 15px;
+    text-align: justify;
+    line-height: 1.6rem;
+    margin-top: 10px;
+}
+
+.last1 h1 {
+    margin-left: 50px;
+    font-weight: 400;
+}
+
+.last1 p {
+    margin-left: 70px;
+    margin-right: 15px;
+    text-align: justify;
+    line-height: 1.6rem;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.ins1 {
+    color: darkcyan;
+}
