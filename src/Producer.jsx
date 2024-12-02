@@ -10,7 +10,6 @@ const Producer = () => {
     const [quantity, setQuantity] = useState('');
     const [todoList, setTodoList] = useState([]);
 
-    // Fetch the producer list
     useEffect(() => {
         fetch('https://fertilizer-site-1.onrender.com/getproducer')
             .then((res) => res.json())
@@ -18,7 +17,7 @@ const Producer = () => {
             .catch((err) => console.error('Error fetching producers:', err));
     }, []);
 
-    // Add a new producer
+    
     async function handleAddToList() {
         if (!name || !number || !address || !variety) {
             alert('Please fill in all fields!');
@@ -102,7 +101,7 @@ const Producer = () => {
                      <input
                         type="number"
                         value={quantity}
-                        placeholder="Enter your address"
+                        placeholder="Enter your number of quatity"
                         onChange={(e) => setQuantity(e.target.value)}
                     /><br />
                     <select
