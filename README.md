@@ -2,7 +2,6 @@
 
 Farm Fresh Product is a full-stack web application that connects local farmers with customers to deliver organic, farm-fresh products straight to their doorstep. Built using the MERN stack, it supports user-friendly purchasing, real-time order tracking, and secure communication via email using Nodemailer.
 
----
 
 ## 🧰 Tech Stack
 
@@ -16,7 +15,7 @@ Farm Fresh Product is a full-stack web application that connects local farmers w
 | Styling        | CSS / Tailwind    | ![CSS](https://img.shields.io/badge/Style-CSS-blue?logo=css3&style=flat-square) ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38b2ac?logo=tailwindcss&style=flat-square) |
 | Deployment     | Vercel / Render   | ![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel&style=flat-square) ![Render](https://img.shields.io/badge/Backend-Render-3f3f3f?logo=render&style=flat-square) |
 
----
+
 
 ## 🚀 Getting Started
 
@@ -37,4 +36,11 @@ npm install
 - 📦 **Order Confirmation via Nodemailer** – Email notifications for successful orders  
 - 📱 **Responsive Mobile UI** – Seamless experience on both desktop and mobile devices  
 - 👩‍🌾 **Farmer Profiles** – Showcase local farmers and their organic products  
-- 📊 **Admin Dashboard** – Manage products, orders, and users with full control  
+- 📊 **Admin Dashboard** – Manage products, orders, and users with full control
+
+ ## 📧 Contact
+
+**Developer:** Gokulakrishnan S  
+📫 **Email:** [sivalingamgokulakrishnan@gmail.com](mailto:sivalingamgokulakrishnan@gmail.com)  
+🔗 **LinkedIn:** [Gokulakrishnan S](https://www.linkedin.com/in/gokulakrishnan-s-01890b312/)
+
