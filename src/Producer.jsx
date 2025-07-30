@@ -79,13 +79,13 @@ useEffect(() => {
     try {
       let response;
       if (editId) {
-        response = await fetch(`http://localhost:5172/idea/${editId}`, {
+        response = await fetch(`https://cropy.onrender.com/idea/${editId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newIdea),
         });
       } else {
-        response = await fetch('http://localhost:5172/idea', {
+        response = await fetch('https://cropy.onrender.com/idea', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newIdea),
@@ -114,7 +114,7 @@ useEffect(() => {
 
   async function handleDelete(id) {
     try {
-      const response = await fetch(`http://localhost:5172/idea/${id}`, {
+      const response = await fetch(`https://cropy.onrender.com/idea/${id}`, {
         method: 'DELETE',
       });
 

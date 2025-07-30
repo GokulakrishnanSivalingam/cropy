@@ -26,7 +26,7 @@ const Consumer = () => {
   useEffect(() => {
     setQuote(loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)]);
     setLoading(true);
-    fetch("http://localhost:5172/getidea")
+    fetch("https://cropy.onrender.com/getidea")
       .then((res) => res.json())
       .then((data) => {
         setIdeas(data);
