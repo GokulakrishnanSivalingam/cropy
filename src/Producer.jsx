@@ -2,170 +2,267 @@ import React, { useState, useEffect } from 'react';
 import Header from "./Header.jsx";
 import { useNavigate } from "react-router-dom";
 import "./Consumer.css";
+import AboutExpandable from "./AboutExpandable.jsx"; // Import the AboutExpandable component
 
 const loadingQuotes = [
-  "⚡ Our server is slow like a tractor on a muddy road... Please be patient!",
-  "🕰️ Good things take time. Hang in there!",
-  "🚜 Loading crops from the field... please wait!",
-  "🐌 Server is working at village speed...",
-  "🌾 Harvesting data... stay with us!"
+  "🌱 Sowing your ideas... Please wait!",
+  "🚜 Ploughing through the database...",
+  "🌾 Harvesting your crop ideas...",
+  "🕰️ Good things take time. Hang tight!",
+  "⚡ Server is working at farm speed..."
 ];
 
 const Producer = () => {
-  const [address, setAddress] = useState('');
-  const [variety, setVariety] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [username, setUsername] = useState(localStorage.getItem('username'));
-  const [todoList, setTodoList] = useState([]);
+  const [username, setUsername] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [district, setDistrict] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [about, setAbout] = useState('');
+  const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quote, setQuote] = useState("");
+  const [editId, setEditId] = useState(null);
   const navigate = useNavigate();
 
-  // Redirect if not logged in
-  useEffect(() => {
-    if (!username) {
-      navigate('/login');
-    }
-  }, [username, navigate]);
-
-  // Fetch only the current user's data
-  const fetchUserCrops = () => {
-    if (!username) return;
+  // Fetch all crop ideas
+  const fetchIdeas = () => {
     setQuote(loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)]);
     setLoading(true);
-    fetch(`http://localhost:5172/getproducer?name=${encodeURIComponent(username)}`)
+    fetch(`http://localhost:5172/getideas?name=${encodeURIComponent(username)}`)
       .then((res) => res.json())
       .then((data) => {
-        setTodoList(data);
+        setIdeas(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching producers:', err);
+        console.error('Error fetching ideas:', err);
         setLoading(false);
       });
   };
 
-  useEffect(() => {
-    fetchUserCrops();
-    // eslint-disable-next-line
-  }, [username]);
+ useEffect(() => {
+  const storedUsername = localStorage.getItem('username');
+  if (storedUsername) {
+    setUsername(storedUsername);
+  }
+}, []);
 
-  useEffect(() => {
-    const onStorage = () => {
-      setUsername(localStorage.getItem('username'));
-    };
+useEffect(() => {
+  if (username) {
+    fetchIdeas();
+  }
+}, [username]);
+ useEffect(() => {
+    // Listen for changes to localStorage (e.g., login/logout in other tabs)
+    const onStorage = () => setUsername(localStorage.getItem('username'));
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  async function handleAddToList() {
-    if (!address || !variety) {
+  // Optional: update username after login/logout in this tab
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const current = localStorage.getItem('username');
+      if (current !== username) setUsername(current);
+    }, 500);
+    return () => clearInterval(interval);
+  }, [username]);
+  async function handleAddOrUpdateIdea() {
+    if (!username || !imageUrl || !district || !title || !description || !about) {
       alert('Please fill in all fields!');
       return;
     }
 
-    const newEntry = { name: username, address, variety, quantity };
+    const newIdea = { name: username, imageUrl, district, title, description, about };
 
     try {
-      const response = await fetch('http://localhost:5172/producer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newEntry),
-      });
+      let response;
+      if (editId) {
+        response = await fetch(`http://localhost:5172/idea/${editId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newIdea),
+        });
+      } else {
+        response = await fetch('http://localhost:5172/idea', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newIdea),
+        });
+      }
 
       if (response.ok) {
-        alert('Entry added successfully!');
-        setAddress('');
-        setVariety('');
-        setQuantity('');
-        fetchUserCrops();
+        alert(editId ? 'Idea updated successfully!' : 'Idea posted successfully!');
+        setUsername('');
+        setImageUrl('');
+        setDistrict('');
+        setTitle('');
+        setDescription('');
+        setAbout('');
+        setEditId(null);
+        fetchIdeas();
       } else {
         const errorData = await response.json();
-        alert(errorData.error || 'Failed to add entry.');
+        alert(errorData.error || 'Failed to save idea.');
       }
     } catch (err) {
-      console.error('Error adding producer:', err);
-      alert('Failed to add entry.');
+      console.error('Error saving idea:', err);
+      alert('Failed to save idea.');
     }
   }
 
   async function handleDelete(id) {
     try {
-      const response = await fetch(`http://localhost:5172/producer/${id}`, {
+      const response = await fetch(`http://localhost:5172/idea/${id}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        alert('Entry deleted successfully!');
-        fetchUserCrops();
+        alert('Idea deleted successfully!');
+        fetchIdeas();
       } else {
-        alert('Failed to delete entry.');
+        alert('Failed to delete idea.');
       }
     } catch (err) {
-      console.error('Error deleting producer:', err);
-      alert('Failed to delete entry.');
+      console.error('Error deleting idea:', err);
+      alert('Failed to delete idea.');
     }
+  }
+
+  function handleEdit(item) {
+    setEditId(item._id);
+    setUsername(item.name);
+    setImageUrl(item.imageUrl);
+    setDistrict(item.district);
+    setTitle(item.title);
+    setDescription(item.description);
+    setAbout(item.about);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (!username) {
+    return (
+      <div className="login-required">
+        <Header />
+        <div className="login-message">
+          <h2>Please login to access this page.</h2>
+          <button onClick={() => navigate('/login')}>Go to Login</button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div>
-      <Header username={username} />
+    <Header username={username} />
       <div className="crop-container">
         <div className="add-crop">
           <input
             type="text"
-            value={username || ''}
-            placeholder="Enter your name"
+            value={username}
+            placeholder="Your Name"
             readOnly
           /><br />
           <input
             type="text"
-            value={address}
-            placeholder="Enter your address"
-            onChange={(e) => setAddress(e.target.value)}
+            value={imageUrl}
+            placeholder="Image URL"
+            onChange={(e) => setImageUrl(e.target.value)}
           /><br />
           <input
-            type="number"
-            value={quantity}
-            placeholder="Enter your number of quantity"
-            onChange={(e) => setQuantity(e.target.value)}
+            type="text"
+            value={district}
+            placeholder="District"
+            onChange={(e) => setDistrict(e.target.value)}
           /><br />
-          <select
-            value={variety}
-            onChange={(e) => setVariety(e.target.value)}
-          >
-            <option value="">Select variety</option>
-            <option value="samba">samba</option>
-            <option value="karumbu">karumbu</option>
-            <option value="nelu">nelu</option>
-            <option value="ulundhu">ulundhu</option>
-            <option value="ellu">ellu</option>
-            <option value="kezangu">kezangu</option>
-            <option value="kadalai">kadalai</option>
-          </select><br />
-          <button onClick={handleAddToList}>Add to List</button>
+          <input
+            type="text"
+            value={title}
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
+          /><br />
+          <textarea
+            value={description}
+            placeholder="Tags and Description"
+            onChange={(e) => setDescription(e.target.value)}
+            rows={8}
+            style={{
+              minHeight: "120px",
+              maxHeight: "50px",
+              resize: "vertical",
+              width: "100%",
+              fontSize: "1.08rem",
+              padding: "10px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              boxSizing: "border-box"
+            }}
+          /><br />
+          <textarea
+            value={about}
+            placeholder="About"
+            onChange={(e) => setAbout(e.target.value)}
+            rows={8}
+            style={{
+              minHeight: "120px",
+              maxHeight: "400px",
+              resize: "vertical",
+              width: "100%",
+              fontSize: "1.08rem",
+              padding: "10px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              boxSizing: "border-box"
+            }}
+          /><br />
+          <button onClick={handleAddOrUpdateIdea}>
+            {editId ? "Update Idea" : "Post Idea"}
+          </button>
+          {editId && (
+            <button
+              style={{ marginLeft: "10px", background: "#eee", color: "#333" }}
+              onClick={() => {
+                setEditId(null);
+                setUsername('');
+                setImageUrl('');
+                setDistrict('');
+                setTitle('');
+                setDescription('');
+                setAbout('');
+              }}
+            >
+              Cancel
+            </button>
+          )}
         </div>
       </div>
 
       <div className="todo-list">
-        <h3>Your Crops</h3>
+        <h3>All Crop Ideas</h3>
         {loading ? (
           <div className="loading">
             <div className="spinner"></div>
             <p>{quote}</p>
           </div>
-        ) : todoList.length > 0 ? (
+        ) : ideas.length > 0 ? (
           <div className="todo-container">
-            {todoList.map((item) => (
-              <div key={item._id} style={{ marginBottom: '10px' }} className="items">
+            {ideas.map((item) => (
+              <div key={item._id} className="items" style={{ marginBottom: '20px', border: '1px solid #eee', borderRadius: '10px', padding: '16px', background: '#fafbfc' }}>
+                <img src={item.imageUrl} alt={item.title} style={{ width: '100%', maxWidth: '320px', borderRadius: '8px', marginBottom: '10px' }} />
+                <h4 style={{ margin: '8px 0' }}>{item.title}</h4>
                 <p>
-                  <span>Name:</span> {item.name} <br />
-                  <span>Address:</span> {item.address} <br />
-                  <span>Variety:</span> {item.variety} <br />
-                  <span>Quantity:</span> {item.quantity} <br />
+                  <b>By:</b> {item.name}<br />
+                  <b>District:</b> {item.district}<br />
+                  <b>Description:</b> <span style={{ whiteSpace: 'pre-line' }}>{item.description}</span><br />
+                  <b>About:</b> <span><AboutExpandable about={item.about} /></span>
                 </p>
+                <button
+                  onClick={() => handleEdit(item)}
+                  style={{ marginTop: '5px', color: '#1976d2', marginRight: '10px' }}
+                >
+                  Update
+                </button>
                 <button
                   onClick={() => handleDelete(item._id)}
                   style={{ marginTop: '5px', color: 'red' }}
@@ -176,7 +273,7 @@ const Producer = () => {
             ))}
           </div>
         ) : (
-          <p>No items in the list yet.</p>
+          <p>No ideas posted yet.</p>
         )}
       </div>
     </div>

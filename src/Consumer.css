@@ -121,3 +121,224 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.idea-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  margin: 28px 12px;
+  width: 370px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s, transform 0.18s;
+  border: 1px solid #f0f0f0;
+  position: relative;
+}
+.read-more {
+  color: #1877f2;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 4px;
+  user-select: none;
+  transition: color 0.18s;
+}
+.read-more:hover {
+  color: #e1306c;
+  text-decoration: underline;
+}
+
+.idea-card:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+  transform: translateY(-4px) scale(1.025);
+}
+
+/* Top bar like social post */
+.idea-topbar {
+  display: flex;
+  align-items: center;
+  padding: 13px 18px 7px 18px;
+  background: linear-gradient(90deg, #f8fafc 60%, #e3f6fc 100%);
+  border-bottom: 1px solid #f0f0f0;
+}
+.idea-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 13px;
+  border: 2px solid #e0e0e0;
+  background: #e0e0e0;
+}
+.idea-author-info {
+  display: flex;
+  flex-direction: column;
+}
+.idea-author {
+  font-weight: 700;
+  color: #0077b5;
+  font-size: 1.08rem;
+}
+.idea-district {
+  font-size: 0.98rem;
+  color: #4caf50;
+  font-style: italic;
+}
+
+/* Main image */
+.idea-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+  background: #f0f0f0;
+}
+
+/* Content */
+.idea-content {
+  padding: 18px 18px 10px 18px;
+  flex: 1;
+}
+.idea-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #222;
+  letter-spacing: 0.01em;
+}
+.idea-description {
+  font-size: 1.07rem;
+  color: #444;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.idea-about {
+  font-size: 1.01rem;
+  color: #666;
+  margin-bottom: 8px;
+  background: #f6f8fa;
+  padding: 7px 12px;
+  border-radius: 7px;
+  border-left: 3px solid #4caf50;
+}
+
+/* Footer with like/share icons */
+.idea-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #fafbfc;
+  padding: 10px 18px 12px 18px;
+  font-size: 1.1rem;
+  color: #888;
+  border-top: 1px solid #eee;
+  gap: 18px;
+}
+.idea-footer .icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  font-size: 1.25rem;
+  transition: color 0.18s;
+  margin-left: 8px;
+}
+.idea-footer .icon-btn:hover {
+  color: #e1306c;
+}
+.idea-footer .icon-btn.share:hover {
+  color: #1877f2;
+}
+
+
+
+@media (max-width: 768px) {
+
+  .idea-card {
+    width: 97%;
+    margin: 3px;
+    margin-top: 35px;
+    border-radius: 8px;
+  }
+  .idea-image img{
+    height: 650px;
+    border-radius: 10px;
+    width: 95%;
+  }
+  .idea-title {
+    font-size: 1rem;
+  }
+  .idea-content {
+    padding: 8px 4px 6px 4px;
+  }
+  .idea-author,.idea-about,.idea-district,.idea-description
+  {
+    padding-left:6px;
+  }
+  .idea-footer {
+    font-size: 0.95rem;
+    padding: 6px 4px 8px 4px;
+  }
+  .idea-topbar {
+    padding: 6px 4px 3px 4px;
+  }
+}
+
+/* Make sure the container is column on mobile */
+@media (max-width: 900px) {
+  .todo-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.read-more {
+  color: #1877f2;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 4px;
+  user-select: none;
+  transition: color 0.18s;
+}
+.read-more:hover {
+  color: #e1306c;
+  text-decoration: underline;
+}
+
+/* Add to Consumer.css or Header.css */
+.login-required {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.login-message {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 32px 24px;
+  margin-top: 40px;
+  text-align: center;
+}
+.login-message h2 {
+  color: #1976d2;
+  margin-bottom: 18px;
+}
+.login-message button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.login-message button:hover {
+  background: #125ea2;
+} 

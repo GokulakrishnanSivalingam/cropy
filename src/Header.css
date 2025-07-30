@@ -143,9 +143,7 @@ li {
         color: white;
     }
     .m-view {
-        display: flex;
-    }
-    .login {
         display: none;
     }
+    
 }

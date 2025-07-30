@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const Producer = require('./producerdb');
+
 const User = require('./userdb'); // Assuming you have a User model in userdb.js
+const Idea = require('./producerdb'); // Now it's an idea, not a producer
 
 app.use(cors());
 app.use(express.json());
@@ -81,6 +82,74 @@ app.post('/register', async (req, res) => {
     res.status(201).json({ message: 'User registered successfully!' });
   } catch (err) {
     res.status(500).json({ message: 'Registration failed.' });
+  }
+});
+
+app.post('/idea', async (req, res) => {
+  const { name, imageUrl, district, title, description, about } = req.body;
+  try {
+    const newIdea = new Idea({ name, imageUrl, district, title, description, about });
+    await newIdea.save();
+    res.status(201).json({ message: 'Idea saved successfully!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to save idea.' });
+  }
+});
+
+app.get('/getideas', async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    // Validate input
+    if (!name || name.trim() === "") {
+      return res.status(400).json({ error: 'Username is required to fetch ideas.' });
+    }
+
+    // Only fetch ideas by this user
+    const ideas = await Idea.find({ name });
+    res.status(200).json(ideas);
+  } catch (err) {
+    console.error("Error fetching ideas:", err);
+    res.status(500).json({ error: 'Failed to fetch ideas.' });
+  }
+});
+app.get('/getidea', async (req, res) => {
+  try {
+    const { name } = req.query;
+    const query = name ? { name } : {}; // If name exists, filter by it
+    const ideas = await Idea.find(query).sort({ createdAt: -1 });
+    res.status(200).json(ideas);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch ideas.' });
+  }
+});
+
+app.delete('/idea/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Idea.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Idea deleted successfully!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete idea.' });
+  }
+});
+
+app.put('/idea/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, imageUrl, district, title, description, about } = req.body;
+  try {
+    const updated = await Idea.findByIdAndUpdate(
+      id,
+      { name, imageUrl, district, title, description, about },
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ error: 'Idea not found.' });
+    }
+    res.status(200).json({ message: 'Idea updated successfully!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update idea.' });
   }
 });
 

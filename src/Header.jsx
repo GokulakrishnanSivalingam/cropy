@@ -55,12 +55,13 @@ const Header = ({ username }) => {
                             <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: 'red', cursor: 'pointer' }}>Logout</button>
                         </div>
                     )}
+                     </div>
                     <div className="hamburger" onClick={toggleMenu}>
                         <span className="bar"></span>
                         <span className="bar"></span>
                         <span className="bar"></span>
                     </div>
-                </div>
+               
             </nav>
         </header>
     );
