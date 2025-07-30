@@ -2,10 +2,10 @@ import React from "react";
 import './About.css';
 import Header from "./Header";
 const About=()=>{
-
+  const username = localStorage.getItem('username');
 return(<>
     <div>
-      <Header></Header>
+      <Header username={username} />
         <div className="about-containers">
      <div className="about-page">  <h1>About us</h1></div> 
         <p>Welcome to Farm Fresh Connect, the platform that bridges the gap between farmers and wholesalers, enabling direct transactions without any intermediaries. At Farm Fresh Connect, our goal is simple: to provide a seamless, reliable, and user-friendly space where farmers can list their fresh products, and wholesalers can connect with them for bulk purchases.

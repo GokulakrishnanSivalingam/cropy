@@ -1,21 +1,52 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "./Header.jsx";
 import "./Consumer.css";
+
+const loadingQuotes = [
+  "⚡ Our server is slow like a tractor on a muddy road... Please be patient!",
+  "🕰️ Good things take time. Hang in there!",
+  "🚜 Loading crops from the field... please wait!",
+  "🐌 Server is working at village speed...",
+  "🌾 Harvesting data... stay with us!"
+];
 
 const Consumer = () => {
   const [todoList, setTodoList] = useState([]);
   const [searchAddress, setSearchAddress] = useState("");
   const [searchItem, setSearchItem] = useState("");
-
+  const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState(localStorage.getItem('username'));
+  const [quote, setQuote] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://fertilizer-site-1.onrender.com/getproducer")
+    if (!username) {
+      navigate('/login');
+    }
+  }, [username, navigate]);
+
+  useEffect(() => {
+    setQuote(loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)]);
+    setLoading(true);
+    fetch("http://localhost:5172/getproducer")
       .then((res) => res.json())
-      .then((data) => setTodoList(data))
-      .catch((err) => console.error("Error fetching producers:", err));
+      .then((data) => {
+        setTodoList(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching producers:", err);
+        setLoading(false);
+      });
   }, []);
 
-  // Filtered todoList based on search
+  useEffect(() => {
+    const onStorage = () => setUsername(localStorage.getItem('username'));
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
   const filteredTodoList = todoList.filter(
     (item) =>
       item.address.toLowerCase().includes(searchAddress.toLowerCase()) &&
@@ -24,9 +55,8 @@ const Consumer = () => {
 
   return (
     <div>
-      <Header />
+      <Header username={username} />
       <div className="product-input">
-    
         <div className="search-todo">
           <input
             type="search"
@@ -36,8 +66,6 @@ const Consumer = () => {
             onChange={(e) => setSearchAddress(e.target.value)}
           />
         </div>
-
-        
         <div className="search-todo">
           <input
             type="search"
@@ -49,16 +77,20 @@ const Consumer = () => {
         </div>
       </div>
 
-      
       <div className="todo-list">
         <h3>Crop Variety</h3>
-        {filteredTodoList.length > 0 ? (
+        {loading ? (
+          <div className="loading">
+            <div className="spinner"></div>
+            <p>{quote}</p>
+          </div>
+        ) : filteredTodoList.length > 0 ? (
           <div className="todo-container">
             {filteredTodoList.map((item) => (
-              <div key={item._id} style={{ marginBottom: "10px" }} className="items">
+              <div key={item._id} className="items">
                 <p>
                   <span>Name:</span> {item.name} <br />
-                  <span>quantity:</span> {item.quantity} <br />
+                  <span>Quantity:</span> {item.quantity} <br />
                   <span>Address:</span> {item.address} <br />
                   <span>Variety:</span> {item.variety} <br />
                 </p>

@@ -7,14 +7,16 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 
 function Login() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [message,setMessage]=useState('');
   const navigate = useNavigate();
   
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [message,setMessage]=useState('');
 
   async function Log(e) {
     e.preventDefault();
@@ -41,7 +43,7 @@ function Login() {
     }
 
   
-    const resp = await fetch('https://educative-game-2.onrender.com/login', {
+    const resp = await fetch('http://localhost:5172/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,8 +57,9 @@ function Login() {
     const data = await resp.json();
 
     if (resp.ok) {
+      localStorage.setItem('username', data.name); // <-- Save username
       navigate('/'); 
-
+      window.location.reload(); // Optional: force header to update
     } else {
       console.log('Login failed');
       setMessage(data.message);
@@ -66,6 +69,7 @@ function Login() {
     console.log('Login Success:', response);
     const userInfo = response.credential; 
     console.log(userInfo);
+    localStorage.setItem('username', response.name); // or response.data.name
     navigate('/');
     
   };
