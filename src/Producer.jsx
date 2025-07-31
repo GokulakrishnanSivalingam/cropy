@@ -29,7 +29,7 @@ const Producer = () => {
   const fetchIdeas = () => {
     setQuote(loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)]);
     setLoading(true);
-    fetch(`http://localhost:5172/getideas?name=${encodeURIComponent(username)}`)
+    fetch(`https://cropy.onrender.com/getideas?name=${encodeURIComponent(username)}`)
       .then((res) => res.json())
       .then((data) => {
         setIdeas(data);
