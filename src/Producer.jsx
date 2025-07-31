@@ -159,34 +159,42 @@ const Producer = () => {
         <div className="add-crop">
           <input type="text" value={username} readOnly /><br />
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={async (e) => {
-              const file = e.target.files[0];
-              if (!file) return;
+         <input
+  type="file"
+  placeholder='Upload Image or Video'
+  accept="image/*,video/*"
+  onChange={async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-              const formData = new FormData();
-              formData.append('file', file);
-              setUploadingImage(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    setUploadingImage(true);
 
-              try {
-                const res = await fetch(`https://cropy.onrender.com/upload`, {
-                  method: 'POST',
-                  body: formData,
-                });
+    try {
+      const res = await fetch(`http://localhost:5172/upload`, {
+        method: 'POST',
+        body: formData,
+      });
 
-                const data = await res.json();
-                setImageUrl(data.url);
-              } catch (error) {
-                console.error('Upload error:', error);
-                alert('Image upload failed!');
-              } finally {
-                setUploadingImage(false);
-              }
-            }}
-          />
-          {uploadingImage && <p>Uploading image...</p>}
+      const data = await res.json();
+
+      if (data?.url) {
+        setImageUrl(data.url); // ✅ this is critical
+      } else {
+        alert('Upload succeeded, but no URL returned.');
+        setImageUrl('');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('File upload failed!');
+      setImageUrl('');
+    } finally {
+      setUploadingImage(false);
+    }
+  }}
+/>
+          {uploadingImage && <p>file Uploading ...</p>}
           <br />
 
           <input
@@ -265,7 +273,19 @@ const Producer = () => {
           <div className="todo-container">
             {ideas.map((item) => (
               <div key={item._id} className="items" style={{ marginBottom: '20px', border: '1px solid #eee', borderRadius: '10px', padding: '16px', background: '#fafbfc' }}>
-                <img src={item.imageUrl} alt={item.title} style={{ width: '100%', maxWidth: '320px', borderRadius: '8px', marginBottom: '10px' }} />
+                {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
+  <video
+    controls
+    src={item.imageUrl}
+    style={{ width: '100%', maxWidth: '320px', borderRadius: '8px', marginBottom: '10px' }}
+  />
+) : (
+  <img
+    src={item.imageUrl}
+    alt={item.title}
+    style={{ width: '100%', maxWidth: '320px', borderRadius: '8px', marginBottom: '10px' }}
+  />
+)}
                 <h4 style={{ margin: '8px 0' }}>{item.title}</h4>
                 <p>
                   <b>By:</b> {item.name}<br />

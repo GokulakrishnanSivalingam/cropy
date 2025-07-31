@@ -68,7 +68,7 @@ const Consumer = () => {
       : item.description;
 
     return (
-      <div className="idea-cont">
+      <div className="idea-container">
       <div className="idea-card">
         <div className="idea-topbar">
           <img
@@ -81,7 +81,20 @@ const Consumer = () => {
             <span className="idea-district">{item.district}</span>
           </div>
         </div>
-        <img src={item.imageUrl} alt={item.title} className="idea-image" />
+       {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
+  <video
+    controls
+    src={item.imageUrl}
+    className="idea-image"
+  />
+) : (
+  <img
+    src={item.imageUrl}
+    alt={item.title}
+    
+    className="idea-image"
+  />
+)}
         <div className="idea-content">
           <h2 className="idea-title">{item.title}</h2>
           <p className="idea-description">

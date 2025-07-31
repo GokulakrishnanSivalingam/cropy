@@ -161,7 +161,8 @@ const upload = multer({ dest: 'uploads/' });
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'crop_images',
+      folder: 'crop_media',
+  resource_type: 'auto'
     });
     fs.unlinkSync(req.file.path); // Delete temp file
     res.status(200).json({ url: result.secure_url });
