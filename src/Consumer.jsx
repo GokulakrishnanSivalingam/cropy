@@ -83,7 +83,7 @@ const Consumer = () => {
         </div>
        {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
   <video
-    controls
+    controls autoPlay
     src={item.imageUrl}
     className="idea-image"
   />

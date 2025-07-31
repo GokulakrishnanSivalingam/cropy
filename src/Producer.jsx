@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from "./Header.jsx";
 import { useNavigate } from "react-router-dom";
-import "./Consumer.css";
+import "./Producer.css";
 import AboutExpandable from "./AboutExpandable.jsx";
 
 const loadingQuotes = [
@@ -193,8 +193,7 @@ const Producer = () => {
       setUploadingImage(false);
     }
   }}
-/>
-          {uploadingImage && <p>file Uploading ...</p>}
+/>          {uploadingImage && <p style={{color:"green" }}>file Uploading ...</p>}
           <br />
 
           <input
@@ -211,39 +210,24 @@ const Producer = () => {
             onChange={(e) => setTitle(e.target.value)}
           /><br />
 
-          <textarea
+          <input
+            type="text"
             value={description}
             placeholder="Tags and Description"
             onChange={(e) => setDescription(e.target.value)}
-            rows={8}
-            style={{
-              minHeight: "120px",
-              maxHeight: "50px",
-              resize: "vertical",
-              width: "100%",
-              fontSize: "1.08rem",
-              padding: "10px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              boxSizing: "border-box"
-            }}
+           
+            
           /><br />
 
           <textarea
             value={about}
             placeholder="About"
             onChange={(e) => setAbout(e.target.value)}
-            rows={8}
+            rows={9}
             style={{
               minHeight: "120px",
               maxHeight: "400px",
-              resize: "vertical",
-              width: "100%",
-              fontSize: "1.08rem",
-              padding: "10px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              boxSizing: "border-box"
+              
             }}
           /><br />
 
@@ -272,36 +256,32 @@ const Producer = () => {
         ) : ideas.length > 0 ? (
           <div className="todo-container">
             {ideas.map((item) => (
-              <div key={item._id} className="items" style={{ marginBottom: '20px', border: '1px solid #eee', borderRadius: '10px', padding: '16px', background: '#fafbfc' }}>
+              <div key={item._id} className="items-producer" >
                 {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
   <video
     controls
     src={item.imageUrl}
-    style={{ width: '100%', maxWidth: '320px', borderRadius: '8px', marginBottom: '10px' }}
+    className='item-image'
   />
 ) : (
   <img
     src={item.imageUrl}
     alt={item.title}
-    style={{ width: '100%', maxWidth: '320px', borderRadius: '8px', marginBottom: '10px' }}
+    className='item-image'
   />
 )}
                 <h4 style={{ margin: '8px 0' }}>{item.title}</h4>
-                <p>
-                  <b>By:</b> {item.name}<br />
-                  <b>District:</b> {item.district}<br />
-                  <b>Description:</b> <span style={{ whiteSpace: 'pre-line' }}>{item.description}</span><br />
-                  <b>About:</b> <span><AboutExpandable about={item.about} /></span>
-                </p>
+                
                 <button
                   onClick={() => handleEdit(item)}
-                  style={{ marginTop: '5px', color: '#1976d2', marginRight: '10px' }}
+                 
+                  className='update-button'
                 >
                   Update
                 </button>
                 <button
                   onClick={() => handleDelete(item._id)}
-                  style={{ marginTop: '5px', color: 'red' }}
+                  className='delete-button'
                 >
                   Delete
                 </button>

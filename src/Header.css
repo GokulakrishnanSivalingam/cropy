@@ -89,15 +89,17 @@ li {
     display: none;
 }
 .title img {
-    width: 150px;
-    height: 37px;
+    width: 55px;
+    height: 45px;
+    margin-left: 10px;
+    margin-top: 2px;
 }
 
 @media screen and (max-width:768px) {
     .nav-links {
         display: none;
         flex-direction: column;
-        width: 30%;
+        width: 44%;
         height: fit-content;
         text-align: left;
         position: absolute;
@@ -106,6 +108,7 @@ li {
         background-color: rgb(239, 232, 232);
         padding: 15px;
         border-radius: 10px;
+        z-index: 1001;
     }
     .nav-links.active {
         display: flex;
@@ -122,6 +125,10 @@ li {
         transition: 0.2s;
         padding: 10px;
         overflow: hidden;
+    }
+    .post-pc
+    {
+        display: none;
     }
     .hamburger {
         display: flex;

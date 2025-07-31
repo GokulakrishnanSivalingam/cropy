@@ -1,37 +1,42 @@
 import React from "react";
 import './About.css';
 import Header from "./Header";
-const About=()=>{
+
+const About = () => {
   const username = localStorage.getItem('username');
-return(<>
-    <div>
-      <Header username={username} />
+  return (
+    <>
+      <div>
+        <Header username={username} />
         <div className="about-containers">
-     <div className="about-page">  <h1>About us</h1></div> 
-        <p>Welcome to Farm Fresh Connect, the platform that bridges the gap between farmers and wholesalers, enabling direct transactions without any intermediaries. At Farm Fresh Connect, our goal is simple: to provide a seamless, reliable, and user-friendly space where farmers can list their fresh products, and wholesalers can connect with them for bulk purchases.
 
-We understand the challenges that come with traditional farming and product distribution methods, which often involve intermediaries that can raise prices and reduce the farmers’ profit margins. Our platform eliminates this problem by allowing wholesalers to interact directly with the farmers, ensuring fair pricing, faster transactions, and better relationships between producers and buyers.</p>
-    
-    <div>
-     <div className="about-page">  <h1>Our Role</h1></div> 
-        <p>We are not just a marketplace; we are the facilitators. We provide a robust platform where transactions can happen smoothly, and we are dedicated to maintaining the website’s performance, security, and ease of use. Our primary responsibility is ensuring that the website runs efficiently and remains a reliable tool for both farmers and wholesalers.
+          <div className="about-page"><h1>About Us</h1></div>
+          <p>
+            Welcome to <strong>ConnectSphere</strong> — your digital space to express, engage, and connect. We're a dynamic social media platform designed to empower users to share their stories, discover new perspectives, and build meaningful communities without limitations.
+          </p>
 
-If any issues arise—whether it’s with user accounts, product listings, or general platform use—we’re here to provide quick and effective support. Our team is constantly working behind the scenes to ensure a seamless experience for all users, offering troubleshooting and updates as needed.</p>
-    </div>
+          <div className="about-page"><h1>Our Role</h1></div>
+          <p>
+            At ConnectSphere, we don't just provide a platform — we create possibilities. Whether you're a content creator, an entrepreneur, or someone who simply loves to stay connected, our mission is to help you reach your audience and engage with them authentically.
+            We ensure your experience is secure, seamless, and tailored to modern social interaction. From profile creation to post sharing, our team maintains a system that supports your voice, creativity, and privacy.
+          </p>
 
-      <div className="about-page"><h1>What We Offer</h1></div>  
-        <li><u>A Direct Marketplace: </u>Farmers can showcase their products in real-time, and wholesalers can place bulk orders directly with them, saving time and cost.</li>
-<li><u>Easy Product Listing:</u> Farmers can easily list their available products with all relevant details, from type and quantity to pricing and availability.</li>
-<li><u>Secure Platform:</u> We prioritize security, ensuring that both farmers and wholesalers have a safe and trusted environment for all transactions.</li>
-<li><u>Ongoing Support:</u> Our team provides continuous maintenance to ensure the platform works smoothly, addressing any technical issues promptly and efficiently.</li>
-    
-    
-      <div className="about-page"> <h1>Our Vision</h1></div> 
-        <p>At Farm Fresh Connect, we believe that transparency, fairness, and efficiency are the key elements in transforming agricultural trade. By empowering farmers and wholesalers to interact directly, we aim to make fresh, quality farm products more accessible, affordable, and efficient to distribute.
+          <div className="about-page"><h1>What We Offer</h1></div>
+          <li><u>Creator-Friendly Tools:</u> Whether it's video, photos, reels, or live streaming — share your content in the way that best suits your style.</li>
+          <li><u>Interactive Community:</u> Follow, like, comment, or DM — every connection is just a tap away.</li>
+          <li><u>Data Privacy & Security:</u> Your content and information are protected with our robust privacy-first infrastructure.</li>
+          <li><u>Real-Time Analytics:</u> Understand your reach and growth with detailed engagement insights.</li>
 
-Our platform will continue to evolve with the goal of enhancing the agricultural community, supporting local economies, and promoting sustainability in farming practices. We are here to provide a reliable platform that grows with the needs of our users, ensuring that both farmers and wholesalers can thrive in an environment free from unnecessary intermediaries.</p>
-    </div></div>
-</>);
-}
+          <div className="about-page"><h1>Our Vision</h1></div>
+          <p>
+            We envision a world where social media is more than just scrolling — it’s about building communities, fostering creativity, and amplifying individual voices. ConnectSphere is committed to creating a safe, inclusive, and innovative space for self-expression, brand building, and meaningful interaction.
+            As we continue to grow, our goal remains clear: to connect people through experiences that inspire and conversations that matter.
+          </p>
+
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default About;

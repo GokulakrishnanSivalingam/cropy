@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Header.css';
 import { Link, useNavigate } from "react-router-dom";
-import ff from "./images/ff2.png"
+import ff from "./images/ff3.png"
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 const Header = ({ username }) => {
@@ -28,7 +28,8 @@ const Header = ({ username }) => {
             <nav className="navbar">
                 <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/consumer">Products</Link></li>
+                    <li className="post-pc"><Link to="/producer"> <IoIosAddCircleOutline /> post</Link></li>
+                    <li><Link to="/about">About</Link></li>
                     {!username ? (
                         <>
                             <li><Link to="/register">Signup</Link></li>
