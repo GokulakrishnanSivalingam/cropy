@@ -83,7 +83,7 @@ function Login() {
       <div>
        
         <div className="cont-auth">
-        <fieldset className='field'>
+        <div className="field">
      <center>  <div className="icon-auth"><h1><FaUser/></h1></div> </center>  <br />
           <form>
             <label htmlFor="email">Email</label><br />
@@ -112,23 +112,13 @@ function Login() {
             <br />
             <center>
              <div className="auth"> <button type="submit" onClick={Log}>Login</button></div>
-             <GoogleOAuthProvider clientId="848508527235-cbrsoqi49lr88rfiivj0nuc2fhrgugmm.apps.googleusercontent.com">
-      <div>
-        <p>or</p>
-        <GoogleLogin
-          onSuccess={handleSuccess}
-          onError={handleError}
-          isSigedIn={true}
-          cookiePolicy={'single_host_origin '}
-        />
-      </div>
-    </GoogleOAuthProvider>
+          
             </center>
         <div className="servererror"> <p>{message}</p></div>   
           </form>
           <br />
           <p>do not have any account? <Link to="/register">register</Link></p>
-        </fieldset></div>
+        </div></div>
         <br />
       </div>
     </>

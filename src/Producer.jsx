@@ -144,10 +144,11 @@ useEffect(() => {
   if (!username) {
     return (
       <div className="login-required">
-        <Header />
         <div className="login-message">
           <h2>Please login to access this page.</h2>
           <button onClick={() => navigate('/login')}>Go to Login</button>
+                     <button onClick={() => navigate('/')}>Go Back</button>
+
         </div>
       </div>
     );
