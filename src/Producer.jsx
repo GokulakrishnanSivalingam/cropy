@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from "./Header.jsx";
 import { useNavigate } from "react-router-dom";
 import "./Consumer.css";
-import AboutExpandable from "./AboutExpandable.jsx"; // Import the AboutExpandable component
+import AboutExpandable from "./AboutExpandable.jsx";
 
 const loadingQuotes = [
   "🌱 Sowing your ideas... Please wait!",
@@ -15,6 +15,7 @@ const loadingQuotes = [
 const Producer = () => {
   const [username, setUsername] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [district, setDistrict] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -25,42 +26,36 @@ const Producer = () => {
   const [editId, setEditId] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch all crop ideas
   const fetchIdeas = () => {
     setQuote(loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)]);
     setLoading(true);
     fetch(`https://cropy.onrender.com/getideas?name=${encodeURIComponent(username)}`)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setIdeas(data);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error('Error fetching ideas:', err);
         setLoading(false);
       });
   };
 
- useEffect(() => {
-  const storedUsername = localStorage.getItem('username');
-  if (storedUsername) {
-    setUsername(storedUsername);
-  }
-}, []);
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) setUsername(storedUsername);
+  }, []);
 
-useEffect(() => {
-  if (username) {
-    fetchIdeas();
-  }
-}, [username]);
- useEffect(() => {
-    // Listen for changes to localStorage (e.g., login/logout in other tabs)
+  useEffect(() => {
+    if (username) fetchIdeas();
+  }, [username]);
+
+  useEffect(() => {
     const onStorage = () => setUsername(localStorage.getItem('username'));
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  // Optional: update username after login/logout in this tab
   useEffect(() => {
     const interval = setInterval(() => {
       const current = localStorage.getItem('username');
@@ -68,39 +63,35 @@ useEffect(() => {
     }, 500);
     return () => clearInterval(interval);
   }, [username]);
+
   async function handleAddOrUpdateIdea() {
     if (!username || !imageUrl || !district || !title || !description || !about) {
       alert('Please fill in all fields!');
       return;
     }
 
+    if (uploadingImage) {
+      alert("Image is still uploading. Please wait...");
+      return;
+    }
+
     const newIdea = { name: username, imageUrl, district, title, description, about };
 
     try {
-      let response;
-      if (editId) {
-        response = await fetch(`https://cropy.onrender.com/idea/${editId}`, {
-          method: 'PUT',
+      const response = await fetch(
+        editId
+          ? `https://cropy.onrender.com/idea/${editId}`
+          : 'https://cropy.onrender.com/idea',
+        {
+          method: editId ? 'PUT' : 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newIdea),
-        });
-      } else {
-        response = await fetch('https://cropy.onrender.com/idea', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newIdea),
-        });
-      }
+        }
+      );
 
       if (response.ok) {
         alert(editId ? 'Idea updated successfully!' : 'Idea posted successfully!');
-        setUsername('');
-        setImageUrl('');
-        setDistrict('');
-        setTitle('');
-        setDescription('');
-        setAbout('');
-        setEditId(null);
+        resetForm();
         fetchIdeas();
       } else {
         const errorData = await response.json();
@@ -110,6 +101,15 @@ useEffect(() => {
       console.error('Error saving idea:', err);
       alert('Failed to save idea.');
     }
+  }
+
+  function resetForm() {
+    setImageUrl('');
+    setDistrict('');
+    setTitle('');
+    setDescription('');
+    setAbout('');
+    setEditId(null);
   }
 
   async function handleDelete(id) {
@@ -132,7 +132,6 @@ useEffect(() => {
 
   function handleEdit(item) {
     setEditId(item._id);
-    setUsername(item.name);
     setImageUrl(item.imageUrl);
     setDistrict(item.district);
     setTitle(item.title);
@@ -147,8 +146,7 @@ useEffect(() => {
         <div className="login-message">
           <h2>Please login to access this page.</h2>
           <button onClick={() => navigate('/login')}>Go to Login</button>
-                     <button onClick={() => navigate('/')}>Go Back</button>
-
+          <button onClick={() => navigate('/')}>Go Back</button>
         </div>
       </div>
     );
@@ -156,33 +154,55 @@ useEffect(() => {
 
   return (
     <div>
-    <Header username={username} />
+      <Header username={username} />
       <div className="crop-container">
         <div className="add-crop">
+          <input type="text" value={username} readOnly /><br />
+
           <input
-            type="text"
-            value={username}
-            placeholder="Your Name"
-            readOnly
-          /><br />
-          <input
-            type="text"
-            value={imageUrl}
-            placeholder="Image URL"
-            onChange={(e) => setImageUrl(e.target.value)}
-          /><br />
+            type="file"
+            accept="image/*"
+            onChange={async (e) => {
+              const file = e.target.files[0];
+              if (!file) return;
+
+              const formData = new FormData();
+              formData.append('file', file);
+              setUploadingImage(true);
+
+              try {
+                const res = await fetch(`http://localhost:5172/upload`, {
+                  method: 'POST',
+                  body: formData,
+                });
+
+                const data = await res.json();
+                setImageUrl(data.url);
+              } catch (error) {
+                console.error('Upload error:', error);
+                alert('Image upload failed!');
+              } finally {
+                setUploadingImage(false);
+              }
+            }}
+          />
+          {uploadingImage && <p>Uploading image...</p>}
+          <br />
+
           <input
             type="text"
             value={district}
             placeholder="District"
             onChange={(e) => setDistrict(e.target.value)}
           /><br />
+
           <input
             type="text"
             value={title}
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
           /><br />
+
           <textarea
             value={description}
             placeholder="Tags and Description"
@@ -200,6 +220,7 @@ useEffect(() => {
               boxSizing: "border-box"
             }}
           /><br />
+
           <textarea
             value={about}
             placeholder="About"
@@ -217,21 +238,15 @@ useEffect(() => {
               boxSizing: "border-box"
             }}
           /><br />
+
           <button onClick={handleAddOrUpdateIdea}>
             {editId ? "Update Idea" : "Post Idea"}
           </button>
+
           {editId && (
             <button
               style={{ marginLeft: "10px", background: "#eee", color: "#333" }}
-              onClick={() => {
-                setEditId(null);
-                setUsername('');
-                setImageUrl('');
-                setDistrict('');
-                setTitle('');
-                setDescription('');
-                setAbout('');
-              }}
+              onClick={resetForm}
             >
               Cancel
             </button>

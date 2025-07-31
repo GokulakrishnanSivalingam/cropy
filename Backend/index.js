@@ -152,6 +152,25 @@ app.put('/idea/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to update idea.' });
   }
 });
+const multer = require('multer');
+const fs = require('fs');
+const cloudinary = require('./Cloudinary');
+
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'crop_images',
+    });
+    fs.unlinkSync(req.file.path); // Delete temp file
+    res.status(200).json({ url: result.secure_url });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
