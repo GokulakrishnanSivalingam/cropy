@@ -172,7 +172,7 @@ const Producer = () => {
     setUploadingImage(true);
 
     try {
-      const res = await fetch(`http://localhost:5172/upload`, {
+      const res = await fetch(`https://cropy.onrender.com/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -180,7 +180,7 @@ const Producer = () => {
       const data = await res.json();
 
       if (data?.url) {
-        setImageUrl(data.url); // ✅ this is critical
+        setImageUrl(data.url);
       } else {
         alert('Upload succeeded, but no URL returned.');
         setImageUrl('');
