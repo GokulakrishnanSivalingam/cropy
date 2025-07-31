@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './Header.css';
 import { Link, useNavigate } from "react-router-dom";
 import ff from "./images/ff2.png"
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 const Header = ({ username }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -46,21 +47,25 @@ const Header = ({ username }) => {
                         </>
                     )}
                 </ul>
+                 
                 <div className="m-view">
-                    {!username ? (
-                        <div className="login2"><p><Link to="/login">Login</Link></p></div>
-                    ) : (
-                        <div className="login2">
-                            <span style={{ color: 'green', fontWeight: 'bold', marginRight: '10px' }}>{username}</span>
-                            <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: 'red', cursor: 'pointer' }}>Logout</button>
-                        </div>
-                    )}
-                     </div>
+                   
+                        <div className="login2"><p><Link to="/producer"><IoIosAddCircleOutline /> Post</Link></p></div>
+                 
+                          
+                
+                    
+                   
+                    
+   
+  
                     <div className="hamburger" onClick={toggleMenu}>
                         <span className="bar"></span>
                         <span className="bar"></span>
                         <span className="bar"></span>
                     </div>
+                      </div>
+                    
                
             </nav>
         </header>

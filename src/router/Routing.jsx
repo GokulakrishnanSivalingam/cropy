@@ -14,12 +14,11 @@ function Routing() {
     <Router>
       
       <Routes>
-        <Route path="/" element={<App/>} />
+        <Route path="/" element={<Consumer/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/producer" element={<Producer/>} />
-        <Route path="/consumer" element={<Consumer/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/instruction" element={<Instruction/>} />
 

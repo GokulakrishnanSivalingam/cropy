@@ -68,6 +68,7 @@ const Consumer = () => {
       : item.description;
 
     return (
+      <div className="idea-cont">
       <div className="idea-card">
         <div className="idea-topbar">
           <img
@@ -98,37 +99,19 @@ const Consumer = () => {
             <AboutExpandable about={item.about} />
           </div>
         </div>
-      
+      </div>
       </div>
     );
   }
 
-  if (!username) {
-    return (
-      <div className="login-required">
-        <div className="login-message">
-          <h2>Please login to access this page.</h2>
-          <button onClick={() => navigate('/login')}>Go to Login</button>
-           <button onClick={() => navigate('/')}>Go Back</button>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <div>
             <Header username={username} />
 
       <div className="product-input">
-        <div className="search-todo">
-          <input
-            type="search"
-            className="search-box"
-            placeholder="Search by District..."
-            value={searchDistrict}
-            onChange={(e) => setSearchDistrict(e.target.value)}
-          />
-        </div>
+        
         <div className="search-todo">
           <input
             type="search"
@@ -141,7 +124,8 @@ const Consumer = () => {
       </div>
 
       <div className="todo-list">
-        <h3>Crop Ideas</h3>
+        
+       <div className="ideas"><center><h3>Ideas</h3></center></div> 
         {loading ? (
           <div className="loading">
             <div className="spinner"></div>

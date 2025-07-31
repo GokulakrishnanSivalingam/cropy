@@ -1,33 +1,25 @@
 import { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './auth.css';
-
 import { FaUser } from "react-icons/fa";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
-
 function Login() {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [message,setMessage]=useState('');
-  const navigate = useNavigate();
-  
-
+  const [message, setMessage] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // For button loading
+  const navigate = useNavigate();
 
   async function Log(e) {
     e.preventDefault();
-
-    let isValid = true;
-
-  
     setEmailError('');
     setPasswordError('');
+    setMessage('');
+    let isValid = true;
 
-    
     if (!email) {
       setEmailError('Email is required');
       isValid = false;
@@ -38,40 +30,40 @@ function Login() {
       isValid = false;
     }
 
-    if (!isValid) {
-      return; 
-    }
+    if (!isValid) return;
 
-  
-    const resp = await fetch('https://cropy.onrender.com/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-      
-    });
-    const data = await resp.json();
+    setIsLoading(true); // Start loading
 
-    if (resp.ok) {
-      localStorage.setItem('username', data.name); // <-- Save username
-      navigate('/'); 
-      window.location.reload(); // Optional: force header to update
-    } else {
-      console.log('Login failed');
-      setMessage(data.message);
+    try {
+      const resp = await fetch('https://cropy.onrender.com/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await resp.json();
+
+      if (resp.ok) {
+        localStorage.setItem('username', data.name);
+        navigate('/');
+        window.location.reload();
+      } else {
+        setMessage(data.message || "Invalid email or password.");
+      }
+    } catch (error) {
+      setMessage("Server is down. Please try again later.");
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   }
+
   const handleSuccess = (response) => {
     console.log('Login Success:', response);
-    const userInfo = response.credential; 
-    console.log(userInfo);
-    localStorage.setItem('username', response.name); // or response.data.name
+    const userInfo = response.credential;
+    localStorage.setItem('username', response.name);
     navigate('/');
-    
   };
 
   const handleError = () => {
@@ -79,49 +71,37 @@ function Login() {
   };
 
   return (
-    <>
-      <div>
-       
-        <div className="cont-auth">
-        <div className="field">
-     <center>  <div className="icon-auth"><h1><FaUser/></h1></div> </center>  <br />
-          <form>
-            <label htmlFor="email">Email</label><br />
-            <input
-              type="text"
-              name="email"
-              onChange={(e) => setEmail(e.target.value)}
-              
-            /><br />
-         
-            {emailError && <p className="error-text">{emailError}</p>}
-            
-            <label htmlFor="password">Password</label><br />
-            <input
-              type="password"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)} 
-            /><br />
-          
-            {passwordError && <p className="error-text">{passwordError}</p>}
+    <div className="cont-auth">
+      <div className="field">
+        <center><div className="icon-auth"><h1><FaUser /></h1></div></center><br />
+        <form>
+          <label htmlFor="email">Email</label><br />
+          <input type="text" name="email" onChange={(e) => setEmail(e.target.value)} /><br />
+          {emailError && <p className="error-text">{emailError}</p>}
 
-            <div className="check">
-              <input type="checkbox" />
-              <span>remember me</span>
+          <label htmlFor="password">Password</label><br />
+          <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} /><br />
+          {passwordError && <p className="error-text">{passwordError}</p>}
+
+          <div className="check">
+            <input type="checkbox" />
+            <span>remember me</span>
+          </div><br />
+
+          <center>
+            <div className="auth">
+              <button type="submit" onClick={Log} disabled={isLoading}>
+                {isLoading ? 'Logging in...' : 'Login'}
+              </button>
             </div>
-            <br />
-            <center>
-             <div className="auth"> <button type="submit" onClick={Log}>Login</button></div>
-          
-            </center>
-        <div className="servererror"> <p>{message}</p></div>   
-          </form>
-          <br />
-          <p>do not have any account? <Link to="/register">register</Link></p>
-        </div></div>
+          </center>
+
+          <div className="servererror"><p>{message}</p></div>
+        </form>
         <br />
+        <p>Do not have any account? <Link to="/register">Register</Link></p>
       </div>
-    </>
+    </div>
   );
 }
 
