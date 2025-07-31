@@ -171,7 +171,7 @@ const Producer = () => {
               setUploadingImage(true);
 
               try {
-                const res = await fetch(`http://localhost:5172/upload`, {
+                const res = await fetch(`https://cropy.onrender.com/upload`, {
                   method: 'POST',
                   body: formData,
                 });
