@@ -164,41 +164,62 @@ const Producer = () => {
         <div className="add-crop">
           <input type="text" value={username} readOnly /><br />
 
-         <input
-  type="file"
-  placeholder='Upload Image or Video'
-  accept="image/*,video/*"
-  onChange={async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+        <div className="file-upload-wrapper">
+  <label className="upload-label">
+    📁  click it and Upload  Image & Video
+    <input
+      type="file"
+      accept="image/*,video/*"
+      onChange={async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    setUploadingImage(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        setUploadingImage(true);
 
-    try {
-      const res = await fetch(`https://cropy.onrender.com/upload`, {
-        method: 'POST',
-        body: formData,
-      });
+        try {
+          const res = await fetch(`https://cropy.onrender.com/upload`, {
+            method: 'POST',
+            body: formData,
+          });
 
-      const data = await res.json();
+          const data = await res.json();
 
-      if (data?.url) {
-        setImageUrl(data.url);
-      } else {
-        alert('Upload succeeded, but no URL returned.');
-        setImageUrl('');
-      }
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('File upload failed!');
-      setImageUrl('');
-    } finally {
-      setUploadingImage(false);
-    }
-  }}
-/>          {uploadingImage && <p style={{color:"green" }}>file Uploading ...</p>}
+          if (data?.url) {
+            setImageUrl(data.url);
+          } else {
+            alert('Upload succeeded, but no URL returned.');
+            setImageUrl('');
+          }
+        } catch (error) {
+          console.error('Upload error:', error);
+          alert('File upload failed!');
+          setImageUrl('');
+        } finally {
+          setUploadingImage(false);
+        }
+      }}
+    />
+  </label>
+  {uploadingImage && <p className="upload-status">Uploading...</p>}
+</div>
+
+{imageUrl && (
+  imageUrl.match(/\.(mp4|webm|ogg)$/i) ? (
+    <video
+      src={imageUrl}
+      controls
+      className="preview-media"
+    />
+  ) : (
+    <img
+      src={imageUrl}
+      alt="Preview"
+      className="preview-media"
+    />
+  )
+)}
           <br />
 
           <input
