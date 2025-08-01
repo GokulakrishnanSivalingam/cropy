@@ -227,7 +227,7 @@ const Producer = () => {
 
           {imageUrl && (
             imageUrl.match(/\.(mp4|webm|ogg)$/i) ? (
-              <video src={imageUrl} controls className="preview-media" />
+              <video src={imageUrl} muted className="preview-media" />
             ) : (
               <img src={imageUrl} alt="Preview" className="preview-media" />
             )
@@ -285,11 +285,11 @@ const Producer = () => {
             <p className={`loading-quote ${fadeClass}`}>{quote}</p>
           </div>
         ) : ideas.length > 0 ? (
-          <div className="todo-container">
+          <div className="todo-container1">
             {ideas.map((item) => (
               <div key={item._id} className="items-producer">
                 {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
-                  <video controls autoPlay src={item.imageUrl} className='item-image' />
+                  <video muted controls  src={item.imageUrl} className='item-image' />
                 ) : (
                   <img src={item.imageUrl} alt={item.title} className='item-image' />
                 )}
