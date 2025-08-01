@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Header.css';
 import { Link, useNavigate } from "react-router-dom";
-import ff from "./images/ff3.png"
+import ff from "./images/ff3.png";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
 const Header = ({ username }) => {
@@ -21,14 +21,13 @@ const Header = ({ username }) => {
 
     return (
         <header className="header">
-          <div className="title">
-            <h1><img src={ff} alt="" /></h1>
-            
-          </div>
+            <div className="title">
+                <h1><img src={ff} alt="" /></h1>
+            </div>
             <nav className="navbar">
                 <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
                     <li><Link to="/">Home</Link></li>
-                    <li className="post-pc"><Link to="/producer"> <IoIosAddCircleOutline /> post</Link></li>
+                    <li className="post-pc"><Link to="/producer"><IoIosAddCircleOutline /> Post</Link></li>
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/contact">Contact</Link></li>
                     {!username ? (
@@ -49,26 +48,22 @@ const Header = ({ username }) => {
                         </>
                     )}
                 </ul>
-                 
+
                 <div className="m-view">
-                   
-                        <div className="login2"><p><Link to="/producer"><IoIosAddCircleOutline /> Post</Link></p></div>
-                 
-                          
-                
-                    
-                   
-                    
-   
-  
-                    <div className="hamburger" onClick={toggleMenu}>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
+                    <div className="login2"><p><Link to="/producer"><IoIosAddCircleOutline /> Post</Link></p></div>
+
+                    <div className={`hamburger ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+                        {isOpen ? (
+                            <span className="close-icon">&times;</span> // Shows X when open
+                        ) : (
+                            <>
+                                <span className="bar"></span>
+                                <span className="bar"></span>
+                                <span className="bar"></span>
+                            </>
+                        )}
                     </div>
-                      </div>
-                    
-               
+                </div>
             </nav>
         </header>
     );
