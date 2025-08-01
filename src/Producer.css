@@ -99,7 +99,7 @@
     .item-image
     {
       width: 270px;
-  height: 150px;
+  height: 100%;
   object-fit: cover;
   border-bottom: 1px solid #eee;
   background: #f0f0f0;
