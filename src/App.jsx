@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Header from './Header.jsx';
-import image from './images/front.webp';
 import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
@@ -38,7 +37,7 @@ function App() {
         <Helmet>
           <meta property="og:title" content="AVFarm" />
           <meta property="og:description" content="This is a description of the AVFarm website." />
-          <meta property="og:image" content="https://i.pinimg.com/736x/b9/3b/7b/b93b7bb7f7dda76f873917f70e636cf7.jpg" />
+          <meta property="og:image" content="https://i.pinimg.com/736x/b9/3b/7b/b93b7bb7f7dda76f87391770e636cf7.jpg" />
           <meta property="og:url" content="https://avfarm.vercel.app" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@avfarm" />
