@@ -5,11 +5,16 @@ import "./Producer.css";
 import AboutExpandable from "./AboutExpandable.jsx";
 
 const loadingQuotes = [
-  "🌱 Sowing your ideas... Please wait!",
-  "🚜 Ploughing through the database...",
-  "🌾 Harvesting your crop ideas...",
-  "🕰️ Good things take time. Hang tight!",
-  "⚡ Server is working at farm speed..."
+  "🙏 We're sorry — our backend is taking longer than expected.",
+  "😔 Apologies for the delay, things are moving... just a bit slowly.",
+  "🛠️ Our servers are working hard to catch up. Thanks for your patience!",
+  "⏳ Sorry for the wait — your request is important to us.",
+  "🚧 Our system's a bit overwhelmed right now. Hang in there!",
+  "📡 We’re experiencing a temporary slowdown. Thank you for staying with us.",
+  "😓 Oops, our backend is running a bit late. We really appreciate your patience.",
+  "🤝 Sorry about the delay — we’re on it and things will be back to normal shortly.",
+  "🔄 Processing... we know it's slow, and we're truly sorry for the inconvenience.",
+  "💬 Thank you for bearing with us — smoother experience coming soon!"
 ];
 
 const Producer = () => {
@@ -259,7 +264,7 @@ const Producer = () => {
               <div key={item._id} className="items-producer" >
                 {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
   <video
-    controls
+    controls autoPlay 
     src={item.imageUrl}
     className='item-image'
   />

@@ -14,15 +14,15 @@ const Contact=()=>{
       const templateParams = {
         name: name,
         email: email,
-        comments: comments, // Add comments to the template params
+        comments: comments, 
       };
   
       emailjs
         .send(
-          'service_xtgaszj', // Your EmailJS service ID
-          'template_6g6uldb', // Your EmailJS template ID
+          'service_xtgaszj', 
+          'template_6g6uldb',
           templateParams,
-          'j3QhwtoRixTPgDidY' // Your EmailJS user ID or public key
+          'j3QhwtoRixTPgDidY'
         )
         .then(
           (response) => {
@@ -39,26 +39,23 @@ const Contact=()=>{
         );
     };
 return(<>
-<Header/>
 <div className="box-contain">
     <form onSubmit={handleSubmit}>
     <div className="box">
-        <div className="left">
-        <img src="https://i.pinimg.com/736x/46/c6/8b/46c68b81433a5e40c0942b1b06059928.jpg" alt="" />
-        </div>
+       
     <div className="right">
         <center><h1>Contact us</h1></center>
         <div className="input">
             Full Name <br></br>
-            <input className="input-box" type="text" value={name} onChange={(e)=>setName(e.target.value)} name="name" id="name"/>
+            <input className="input-box" type="text" value={name} onChange={(e)=>setName(e.target.value)} name="name" id="name" required/>
         </div>
         <div className="input">
             Email <br></br>
-            <input className="input-box"value={email} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" id="email"/>
+            <input className="input-box"value={email} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" id="email" required/>
         </div>
         <div className="input">
             Commend or Message <br></br>
-           <textarea className="area" value={comments} onChange={(e)=>setComments(e.target.value)} rows={5} cols={35}></textarea>
+           <textarea className="area" value={comments} onChange={(e)=>setComments(e.target.value)} rows={7} cols={35} required></textarea>
         </div>
         <div>
           <center> <button type="submit"  className="submit" >Submit</button></center> 

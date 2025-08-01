@@ -1,64 +1,160 @@
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+.box-contain {
+ width: 100vw;
+            background-color: cadetblue;
+
+}
+/* Container Box */
 .box {
-    border-radius: 15px;
-    height: 400px;
-    width: 770px;
-    border: 1px solid black;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
+  border-radius: 5px;
+  max-width: 600px;
+  width: 100%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #ddd;
+  overflow: hidden;
+    background-color: #eae4e4;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Left Side - Image */
 .left {
-    float: left;
+  flex: 1;
 }
 
 .left img {
-    height: 400px;
-    width: 400px;
-    border-radius: 15px 0px 0px 15px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px 0 0 15px;
+  transition: transform 0.3s ease;
 }
 
+.left img:hover {
+  transform: scale(1.02);
+}
+
+/* Right Side - Content */
 .right {
-    float: right;
-    margin-right: 40px;
+  flex: 1;
+  padding: 30px 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .right h1 {
-    font-weight: 400;
-    font-size: 2rem;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
 }
 
-.input-box {
-    margin-top: 10px;
-    width: 100%;
-    font-size: 20px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-    height: 40px;
+/* Input Fields */
+.input-box ,textarea{
+  margin-top: 12px;
+  width: 270px;
+  font-size: 1rem;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: border-color 0.3s;
 }
 
-.box-contain {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.input-box:focus {
+            background-color: cadetblue;
+  outline: none;
 }
 
+/* Textarea Field */
 .area {
-    margin-top: 10px;
+  margin-top: 12px;
 }
 
+/* Submit Button */
 .submit {
-    margin-top: 30px;
-    text-align: center;
-    border: 1px solid #333;
-    border-radius: 7px;
-    height: 35px;
-    width: 150px;
-    font-size: 20px;
+  margin-top: 30px;
+  align-self: center;
+  border: none;
+  border-radius: 8px;
+  height: 42px;
+  width: 180px;
+  font-size: 1rem;
+            background-color: rgb(65, 112, 114);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .submit:hover {
-    color: white;
-    background-color: #333;
+  background-color: cargb(38, 77, 79);
+  transform: scale(1.03);
+}
+
+/* Centering Container */
+.box-contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+@media (max-width: 768px) {
+    .box-contain {
+ width: 100vw;
+            background-color: cadetblue;
+            height: 100vh;
+
+}
+  .box {
+    flex-direction: column;
+    margin: 30px auto;
+  }
+
+  .left img {
+    border-radius: 15px 15px 0 0;
+    height: 260px;
+  }
+
+  .right {
+    padding: 25px 20px;
+  }
+
+  .right h1 {
+    font-size: 1.6rem;
+  }
+
+  .submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .right h1 {
+    font-size: 1.3rem;
+  }
+
+  .input-box,
+  .submit {
+    font-size: 0.95rem;
+  }
+
+  .left img {
+    height: 200px;
+  }
+
+  .right {
+    padding: 20px 15px;
+  }
 }

@@ -5,17 +5,14 @@ import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 
 function App() {
-  // Use state for username!
   const [username, setUsername] = useState(localStorage.getItem('username'));
 
   useEffect(() => {
-    // Listen for changes to localStorage (e.g., login/logout in other tabs)
     const onStorage = () => setUsername(localStorage.getItem('username'));
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
-  // Optional: update username after login/logout in this tab
   useEffect(() => {
     const interval = setInterval(() => {
       const current = localStorage.getItem('username');

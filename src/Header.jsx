@@ -30,6 +30,7 @@ const Header = ({ username }) => {
                     <li><Link to="/">Home</Link></li>
                     <li className="post-pc"><Link to="/producer"> <IoIosAddCircleOutline /> post</Link></li>
                     <li><Link to="/about">About</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
                     {!username ? (
                         <>
                             <li><Link to="/register">Signup</Link></li>
