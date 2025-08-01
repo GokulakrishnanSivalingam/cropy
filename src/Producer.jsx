@@ -28,6 +28,7 @@ const Producer = () => {
   const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quote, setQuote] = useState("");
+  const [fadeClass, setFadeClass] = useState("fade-in");
   const [editId, setEditId] = useState(null);
   const navigate = useNavigate();
 
@@ -68,6 +69,25 @@ const Producer = () => {
     }, 500);
     return () => clearInterval(interval);
   }, [username]);
+
+  // Slideshow fade effect
+  useEffect(() => {
+    if (!loading) return;
+
+    let index = 0;
+    setQuote(loadingQuotes[index]);
+
+    const interval = setInterval(() => {
+      setFadeClass("fade-out");
+      setTimeout(() => {
+        index = (index + 1) % loadingQuotes.length;
+        setQuote(loadingQuotes[index]);
+        setFadeClass("fade-in");
+      }, 500); // match CSS transition
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   async function handleAddOrUpdateIdea() {
     if (!username || !imageUrl || !district || !title || !description || !about) {
@@ -164,63 +184,54 @@ const Producer = () => {
         <div className="add-crop">
           <input type="text" value={username} readOnly /><br />
 
-        <div className="file-upload-wrapper">
-  <label className="upload-label">
-    📁  click it and Upload  Image & Video
-    <input
-      type="file"
-      accept="image/*,video/*"
-      onChange={async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+          <div className="file-upload-wrapper">
+            <label className="upload-label">
+              📁 Click to Upload Image or Video
+              <input
+                type="file"
+                accept="image/*,video/*"
+                onChange={async (e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
 
-        const formData = new FormData();
-        formData.append('file', file);
-        setUploadingImage(true);
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  setUploadingImage(true);
 
-        try {
-          const res = await fetch(`https://cropy.onrender.com/upload`, {
-            method: 'POST',
-            body: formData,
-          });
+                  try {
+                    const res = await fetch(`https://cropy.onrender.com/upload`, {
+                      method: 'POST',
+                      body: formData,
+                    });
 
-          const data = await res.json();
+                    const data = await res.json();
 
-          if (data?.url) {
-            setImageUrl(data.url);
-          } else {
-            alert('Upload succeeded, but no URL returned.');
-            setImageUrl('');
-          }
-        } catch (error) {
-          console.error('Upload error:', error);
-          alert('File upload failed!');
-          setImageUrl('');
-        } finally {
-          setUploadingImage(false);
-        }
-      }}
-    />
-  </label>
-  {uploadingImage && <p className="upload-status">Uploading...</p>}
-</div>
+                    if (data?.url) {
+                      setImageUrl(data.url);
+                    } else {
+                      alert('Upload succeeded, but no URL returned.');
+                      setImageUrl('');
+                    }
+                  } catch (error) {
+                    console.error('Upload error:', error);
+                    alert('File upload failed!');
+                    setImageUrl('');
+                  } finally {
+                    setUploadingImage(false);
+                  }
+                }}
+              />
+            </label>
+            {uploadingImage && <p className="upload-status">Uploading...</p>}
+          </div>
 
-{imageUrl && (
-  imageUrl.match(/\.(mp4|webm|ogg)$/i) ? (
-    <video
-      src={imageUrl}
-      controls
-      className="preview-media"
-    />
-  ) : (
-    <img
-      src={imageUrl}
-      alt="Preview"
-      className="preview-media"
-    />
-  )
-)}
-          <br />
+          {imageUrl && (
+            imageUrl.match(/\.(mp4|webm|ogg)$/i) ? (
+              <video src={imageUrl} controls className="preview-media" />
+            ) : (
+              <img src={imageUrl} alt="Preview" className="preview-media" />
+            )
+          )}
 
           <input
             type="text"
@@ -241,8 +252,6 @@ const Producer = () => {
             value={description}
             placeholder="Tags and Description"
             onChange={(e) => setDescription(e.target.value)}
-           
-            
           /><br />
 
           <textarea
@@ -250,11 +259,7 @@ const Producer = () => {
             placeholder="About"
             onChange={(e) => setAbout(e.target.value)}
             rows={9}
-            style={{
-              minHeight: "120px",
-              maxHeight: "400px",
-              
-            }}
+            style={{ minHeight: "120px", maxHeight: "400px" }}
           /><br />
 
           <button onClick={handleAddOrUpdateIdea}>
@@ -275,42 +280,22 @@ const Producer = () => {
       <div className="todo-list">
         <h3>All Crop Ideas</h3>
         {loading ? (
-          <div className="loading">
+          <div className="loading centered-loading">
             <div className="spinner"></div>
-            <p>{quote}</p>
+            <p className={`loading-quote ${fadeClass}`}>{quote}</p>
           </div>
         ) : ideas.length > 0 ? (
           <div className="todo-container">
             {ideas.map((item) => (
-              <div key={item._id} className="items-producer" >
+              <div key={item._id} className="items-producer">
                 {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
-  <video
-    controls autoPlay 
-    src={item.imageUrl}
-    className='item-image'
-  />
-) : (
-  <img
-    src={item.imageUrl}
-    alt={item.title}
-    className='item-image'
-  />
-)}
+                  <video controls autoPlay src={item.imageUrl} className='item-image' />
+                ) : (
+                  <img src={item.imageUrl} alt={item.title} className='item-image' />
+                )}
                 <h4 style={{ margin: '8px 0' }}>{item.title}</h4>
-                
-                <button
-                  onClick={() => handleEdit(item)}
-                 
-                  className='update-button'
-                >
-                  Update
-                </button>
-                <button
-                  onClick={() => handleDelete(item._id)}
-                  className='delete-button'
-                >
-                  Delete
-                </button>
+                <button onClick={() => handleEdit(item)} className='update-button'>Update</button>
+                <button onClick={() => handleDelete(item._id)} className='delete-button'>Delete</button>
               </div>
             ))}
           </div>

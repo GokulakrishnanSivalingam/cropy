@@ -1,3 +1,4 @@
+/* Search Box */
 .search-todo input {
   width: 400px;
   height: 40px;
@@ -18,160 +19,38 @@
   background-color: white;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
 }
+
 .product-input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -10px;
-}
-
-.crop-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.add-crop {
-    display: block;
-}
-
-.add-crop input {
-    margin: 15px;
-    width: 300px;
-    height: 40px;
-    border: 1px solid gray;
-    border-radius: 3px;
-}
-
-.add-crop select {
-    margin: 15px;
-    width: 315px;
-    height: 40px;
-    border: 1px solid gray;
-    border-radius: 3px;
-}
-
-.add-crop button {
-    color: white;
-    background-color: darkcyan;
-    width: 90%;
-    height: 30px;
-    border: none;
-    margin: 20px;
-    border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -10px;
 }
 
 .todo-container {
-    margin: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-.items {
-    margin: 10px;
-    padding: 15px;
-    border: 1px solid grey;
-    width: 180px;
-}
-
-.todo-list {
-    margin: 60px;
-}
-.ideas{
-  display: none;
-}
-
-@media(max-width:768px) {
-    .todo-container {
-        margin: 0px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .ideas{
-  display: flex;
-}
-    .product-input {
-        display: block;
-        justify-content: center;
-        align-items: center;
-        margin-top: 5px;
-        margin-bottom: 20px;
-    }
-    .search-todo input {
-        width: 95%;
-        border: 1px solid grey;
-        height: 45px;
-        margin: 10px;
-    }
-    .todo-list {
-        margin: 0;
-        margin-top: 10px;
-        margin-bottom: 50px;
-    }
-    .items {
-        margin: 5px;
-        padding: 10px;
-        border: 1px solid grey;
-        width: 40%;
-        height: fit-content;
-    }
-    .todo-list h3 {
-        margin-left: 20px;
-    }
-}
-
-.spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #4caf50;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 10px auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  display: block;
+  padding: 0 12px;
+  margin: 0 auto;
+  max-width: 650px;
 }
 
 
 .idea-card {
+  width: 100%;
   background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-  margin: 28px 12px;
-  width: 370px;
+  border-radius: 1px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+  margin: 5px;
   overflow: hidden;
-  
   transition: box-shadow 0.25s, transform 0.18s;
   border: 1px solid #f0f0f0;
 }
-.read-more {
-  color: #1877f2;
-  cursor: pointer;
-  font-weight: 600;
-  margin-left: 4px;
-  user-select: none;
-  transition: color 0.18s;
-}
-.read-more:hover {
-  color: #e1306c;
-  text-decoration: underline;
-}
 
 .idea-card:hover {
-  box-shadow: 0 12px 32px rgba(0,0,0,0.22);
-  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  
 }
 
-/* Top bar like social post */
 .idea-topbar {
   display: flex;
   align-items: center;
@@ -179,6 +58,7 @@
   background: linear-gradient(90deg, #f8fafc 60%, #e3f6fc 100%);
   border-bottom: 1px solid #f0f0f0;
 }
+
 .idea-avatar {
   width: 38px;
   height: 38px;
@@ -188,35 +68,39 @@
   border: 2px solid #e0e0e0;
   background: #e0e0e0;
 }
+
 .idea-author-info {
   display: flex;
   flex-direction: column;
 }
+
 .idea-author {
   font-weight: 700;
   color: #0077b5;
   font-size: 1.08rem;
 }
+
 .idea-district {
   font-size: 0.98rem;
   color: #4caf50;
   font-style: italic;
 }
 
-/* Main image */
 .idea-image {
   width: 100%;
-  height: 250px;
+  height: auto;
+  max-height: 500px;
   object-fit: cover;
   border-bottom: 1px solid #eee;
   background: #f0f0f0;
+  display: block;
 }
 
-/* Content */
 .idea-content {
-  padding: 18px 18px 10px 18px;
+  padding: 18px;
   flex: 1;
 }
+
 .idea-title {
   font-size: 1.35rem;
   font-weight: 700;
@@ -224,12 +108,28 @@
   color: #222;
   letter-spacing: 0.01em;
 }
+
 .idea-description {
   font-size: 1.07rem;
   color: #444;
   margin-bottom: 14px;
   line-height: 1.6;
 }
+
+.read-more {
+  color: #1877f2;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 4px;
+  user-select: none;
+  transition: color 0.18s;
+}
+
+.read-more:hover {
+  color: #e1306c;
+  text-decoration: underline;
+}
+
 .idea-about {
   font-size: 1.01rem;
   color: #666;
@@ -240,129 +140,84 @@
   border-left: 3px solid #4caf50;
 }
 
-/* Footer with like/share icons */
-.idea-footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background: #fafbfc;
-  padding: 10px 18px 12px 18px;
-  font-size: 1.1rem;
-  color: #888;
-  border-top: 1px solid #eee;
-  gap: 18px;
-}
-.idea-footer .icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #888;
-  font-size: 1.25rem;
-  transition: color 0.18s;
-  margin-left: 8px;
-}
-.idea-footer .icon-btn:hover {
-  color: #e1306c;
-}
-.idea-footer .icon-btn.share:hover {
-  color: #1877f2;
+.todo-list {
+  padding: 30px 0;
 }
 
-
-
-@media (max-width: 768px) {
-
-  .idea-card {
-    width: 97%;
-    margin: 6px;
-    margin-top: 10px;
-    border-radius: 1px;
-  }
-  .idea-image img{
-    height: 650px;
-    border-radius: 10px;
-    width: 95%;
-  }
-  .idea-title {
-    font-size: 1rem;
-  }
-  .idea-content {
-    padding: 8px 4px 6px 4px;
-  }
-  .idea-author,.idea-about,.idea-district,.idea-description
-  {
-    padding-left:6px;
-  }
-  
-  .idea-footer {
-    font-size: 0.95rem;
-    padding: 6px 4px 8px 4px;
-  }
-  .idea-topbar {
-    padding: 6px 4px 3px 4px;
-  }
-}
-
-/* Make sure the container is column on mobile */
-@media (max-width: 900px) {
-  .todo-container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-.read-more {
-  color: #1877f2;
-  cursor: pointer;
-  font-weight: 600;
-  margin-left: 4px;
-  user-select: none;
-  transition: color 0.18s;
-}
-.read-more:hover {
-  color: #e1306c;
-  text-decoration: underline;
-}
-
-/* Add to Consumer.css or Header.css */
-.login-required {
-  height: 100vh;
-  width: 100vw;
+/* Centered loading */
+.centered-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #f1f0f0;
-}
-.login-message {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  padding: 32px 24px;
+  min-height: 200px;
   text-align: center;
-  margin: 15px;
-}
-.login-message h2 {
-  color: darkcyan;;
-  margin-bottom: 18px;
-}
-.login-message button {
-  background: darkcyan;;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 22px;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.18s;
-  margin: 10px;
+  color: #555;
 }
-.login-message button:hover {
-  border: 2px solid darkcyan;
-  color: darkcyan;
-  background-color: white;
-  transition: 0.3s;
-} 
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #4caf50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-quote {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  
+  .product-input {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+
+  .search-todo input {
+    width: 95%;
+    height: 45px;
+    margin: 10px;
+  }
+
+  .todo-list {
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
+
+  .idea-card {
+    width: 100%;
+    border-radius: 5px;
+    margin: 0;
+    margin-left: -1px;
+  }
+
+  .idea-content {
+    padding: 12px;
+  }
+
+  .idea-title {
+    font-size: 1.1rem;
+  }
+
+  .idea-description {
+    font-size: 1rem;
+  }
+
+  .idea-image {
+    max-height: 280px;
+  }
+}

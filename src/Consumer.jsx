@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header.jsx";
 import "./Consumer.css";
-import AboutExpandable from "./AboutExpandable.jsx"; // Import the AboutExpandable component
+import AboutExpandable from "./AboutExpandable.jsx";
 import { useNavigate } from "react-router-dom";
 
 const loadingQuotes = [
-  "⚡ Our server is slow like a tractor on a muddy road... Please be patient!",
-  "🕰️ Good things take time. Hang in there!",
-  "🚜 Loading crops from the field... please wait!",
-  "🐌 Server is working at village speed...",
-  "🌾 Harvesting data... stay with us!"
+  "🙏 We're sorry — our backend is taking longer than expected.",
+  "😔 Apologies for the delay, things are moving... just a bit slowly.",
+  "🛠️ Our servers are working hard to catch up. Thanks for your patience!",
+  "⏳ Sorry for the wait — your request is important to us.",
+  "🚧 Our system's a bit overwhelmed right now. Hang in there!",
+  "📡 We’re experiencing a temporary slowdown. Thank you for staying with us.",
+  "😓 Oops, our backend is running a bit late. We really appreciate your patience.",
+  "🤝 Sorry about the delay — we’re on it and things will be back to normal shortly.",
+  "🔄 Processing... we know it's slow, and we're truly sorry for the inconvenience.",
+  "💬 Thank you for bearing with us — smoother experience coming soon!"
 ];
 
-const MAX_DESC_LENGTH = 120; // characters to show before "Read more"
+const MAX_DESC_LENGTH = 120;
 
 const Consumer = () => {
   const [ideas, setIdeas] = useState([]);
   const [searchDistrict, setSearchDistrict] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
   const [loading, setLoading] = useState(true);
-  
   const [quote, setQuote] = useState("");
- const [username, setUsername] = useState(localStorage.getItem('username'));  const navigate = useNavigate();
+  const [fadeClass, setFadeClass] = useState("fade-in");
+  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     setQuote(loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)]);
@@ -37,21 +43,38 @@ const Consumer = () => {
         setLoading(false);
       });
   }, []);
-   useEffect(() => {
-      // Listen for changes to localStorage (e.g., login/logout in other tabs)
-      const onStorage = () => setUsername(localStorage.getItem('username'));
-      window.addEventListener('storage', onStorage);
-      return () => window.removeEventListener('storage', onStorage);
-    }, []);
-  
-    // Optional: update username after login/logout in this tab
-    useEffect(() => {
-      const interval = setInterval(() => {
-        const current = localStorage.getItem('username');
-        if (current !== username) setUsername(current);
+
+  useEffect(() => {
+    const onStorage = () => setUsername(localStorage.getItem("username"));
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const current = localStorage.getItem("username");
+      if (current !== username) setUsername(current);
+    }, 500);
+    return () => clearInterval(interval);
+  }, [username]);
+
+  // Slideshow quote animation
+  useEffect(() => {
+    if (!loading) return;
+    let index = 0;
+    setQuote(loadingQuotes[index]);
+
+    const interval = setInterval(() => {
+      setFadeClass("fade-out");
+      setTimeout(() => {
+        index = (index + 1) % loadingQuotes.length;
+        setQuote(loadingQuotes[index]);
+        setFadeClass("fade-in");
       }, 500);
-      return () => clearInterval(interval);
-    }, [username]);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const filteredIdeas = ideas.filter(
     (item) =>
@@ -69,62 +92,47 @@ const Consumer = () => {
 
     return (
       <div className="idea-container">
-      <div className="idea-card">
-        <div className="idea-topbar">
-          <img
-            src={`https://api.dicebear.com/8.x/initials/svg?seed=${encodeURIComponent(item.name)}`}
-            alt={item.name}
-            className="idea-avatar"
-          />
-          <div className="idea-author-info">
-            <span className="idea-author">{item.name}</span>
-            <span className="idea-district">{item.district}</span>
+        <div className="idea-card">
+          <div className="idea-topbar">
+            <img
+              src={`https://api.dicebear.com/8.x/initials/svg?seed=${encodeURIComponent(item.name)}`}
+              alt={item.name}
+              className="idea-avatar"
+            />
+            <div className="idea-author-info">
+              <span className="idea-author">{item.name}</span>
+              <span className="idea-district">{item.district}</span>
+            </div>
+          </div>
+          {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
+            <video controls autoPlay src={item.imageUrl} className="idea-image" />
+          ) : (
+            <img src={item.imageUrl} alt={item.title} className="idea-image" />
+          )}
+          <div className="idea-content">
+            <h2 className="idea-title">{item.title}</h2>
+            <p className="idea-description">
+              {expanded ? item.description : shortDesc}
+              {isLong && (
+                <span className="read-more" onClick={() => setExpanded((v) => !v)}>
+                  {expanded ? " Show less" : " Read more"}
+                </span>
+              )}
+            </p>
+            <div className="idea-about">
+              <AboutExpandable about={item.about} />
+            </div>
           </div>
         </div>
-       {item.imageUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
-  <video
-    controls autoPlay
-    src={item.imageUrl}
-    className="idea-image"
-  />
-) : (
-  <img
-    src={item.imageUrl}
-    alt={item.title}
-    
-    className="idea-image"
-  />
-)}
-        <div className="idea-content">
-          <h2 className="idea-title">{item.title}</h2>
-          <p className="idea-description">
-            {expanded ? item.description : shortDesc}
-            {isLong && (
-              <span
-                className="read-more"
-                onClick={() => setExpanded((v) => !v)}
-              >
-                {expanded ? " Show less" : " Read more"}
-              </span>
-            )}
-          </p>
-          <div className="idea-about">
-            <AboutExpandable about={item.about} />
-          </div>
-        </div>
-      </div>
       </div>
     );
   }
 
-
-
   return (
     <div>
-            <Header username={username} />
+      <Header username={username} />
 
       <div className="product-input">
-        
         <div className="search-todo">
           <input
             type="search"
@@ -138,11 +146,10 @@ const Consumer = () => {
 
       <div className="todo-list">
         
-       <div className="ideas"><center><h3>Ideas</h3></center></div> 
         {loading ? (
-          <div className="loading">
+          <div className="loading centered-loading">
             <div className="spinner"></div>
-            <p>{quote}</p>
+            <p className={`loading-quote ${fadeClass}`}>{quote}</p>
           </div>
         ) : filteredIdeas.length > 0 ? (
           <div className="todo-container">
